@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+
+  #scaffold toook the wheel here
   before_action :set_user, only: %i[ show update destroy ]
 
   # GET /users
