@@ -40,7 +40,7 @@ end
     l = Location.all.sample
     c = Category.all.sample
     u = User.all.sample
-    t = "#{Faker::Construction.role}  #{Faker::Verb.past} #{Faker::Construction.material}"
+    t = "#{Faker::Construction.role} #{Faker::Verb.past} #{Faker::Construction.material}"
     d = Faker::Lorem.paragraph(sentence_count: 3)
     Report.create!(user: u, location: l, category: c, title: t, description: d)
 end

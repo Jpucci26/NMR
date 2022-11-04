@@ -4,7 +4,7 @@ class ApplicationController < ActionController::API
     #is this necessarry for the below code line 24
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
-    before_action :authorized_user
+    # before_action :authorized_user
 
 
   private
