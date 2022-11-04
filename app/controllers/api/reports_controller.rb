@@ -1,4 +1,4 @@
-class ReportsController < ApplicationController
+class Api::ReportsController < ApplicationController
   before_action :set_report, only: %i[ show update destroy ]
 
   # GET /reports

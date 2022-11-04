@@ -5,12 +5,45 @@
 u1 = User.create(username: "Jake", password: "1234", password_confirmation: "1234")
 u2 = User.create(username: "Sunny", password: "Sunny", password_confirmation: "Sunny")
 
-l1 = Location.create(name: "building A")
-l2 = Location.create(name: "building B")
+locations = [
+    "Yard A",
+    "Yard B",
+    "Yard C",
+    "Tank Room",
+    "Assembly Line",
+    "Receiving",
+    "Shipping",
+    "Office",
+    "Common Space",
+    "Parking"
+]
+locations.each do |name|
+    Location.create!(name: name)
+end
 
-c1 = Category.create(name: "Hot Work")
-c2 = Category.create(name: "Heavy Equipment")
 
-r1 = Report.create(user_id: u1.id, location_id: l1.id, category_id: c1.id, title: "event 1", description: "this event happened", corrective_action: "put up a net", final_action: "no more rats" )
+categories = [
+    "Slips and trips",
+    "Fall incidents",
+    "Narrow escapes",
+    "Working at heights",
+    "Improper hazard communication",
+    "Equipment operation & maintenance",
+    "Risky behaviour"
+]
 
-puts "done seeding"
+categories.each do |name|
+    Category.create!(name: name)
+end
+
+1.upto(5) do 
+    l = Location.all.sample
+    c = Category.all.sample
+    u = User.all.sample
+    t = "#{Faker::Construction.role}  #{Faker::Verb.past} #{Faker::Construction.material}"
+    d = Faker::Lorem.paragraph(sentence_count: 3)
+    Report.create!(user: u, location: l, category: c, title: t, description: d)
+end
+
+
+puts "done seeding 🌱"
