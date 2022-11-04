@@ -30,10 +30,13 @@ const Dashboard = () => {
             <a href="#" className="block hover:bg-gray-50">
               <div className="px-4 py-4 sm:px-6">
                 <div className="flex items-center justify-between">
+                  <div>
                   <p className="truncate text-sm font-medium text-indigo-600">{report.title}</p>
+                  <p className='text-sm'>{report.description}</p>
+                  </div>
                   <div className="ml-2 flex flex-shrink-0">
-                    <p className="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800">
-                      {report.status}
+                    <p className="inline-flex text-xs font-semibold leading-5">
+                      {StatusPill(report)}
                     </p>
                   </div>
                 </div>
@@ -69,3 +72,28 @@ const Dashboard = () => {
 }
 
 export default Dashboard
+
+function StatusPill(report) {
+
+let c = ""
+
+if(report.status === "pending_final_action"){
+  c = "bg-yellow-100 rounded-full px-2 text-red-800"
+}
+
+if(report.status === "pending_corrective_action"){
+  c = "bg-red-200 rounded-full px-2 text-red-800"
+}
+
+if(report.status === "closed"){
+  c = "bg-green-100 rounded-full px-2 text-green-800"
+}
+
+
+
+
+
+  return <span className = {c}>
+    {report.status}
+  </span>
+}

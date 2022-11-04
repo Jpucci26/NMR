@@ -36,13 +36,13 @@ categories.each do |name|
     Category.create!(name: name)
 end
 
-1.upto(5) do 
+1.upto(100) do 
     l = Location.all.sample
     c = Category.all.sample
     u = User.all.sample
     t = "#{Faker::Construction.role} #{Faker::Verb.past} #{Faker::Construction.material}"
     d = Faker::Lorem.paragraph(sentence_count: 3)
-    s = ['open','closed','pending_action'].sample
+    s = ['pending_corrective_action','closed','pending_final_action'].sample
     Report.create!(user: u, location: l, category: c, title: t, description: d, status: s)
 end
 

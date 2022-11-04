@@ -36,7 +36,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_04_221525) do
     t.string "final_action"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "status", default: "open"
+    t.string "status", default: "pending_corrective_action"
     t.index ["category_id"], name: "index_reports_on_category_id"
     t.index ["location_id"], name: "index_reports_on_location_id"
     t.index ["user_id"], name: "index_reports_on_user_id"
