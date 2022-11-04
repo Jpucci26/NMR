@@ -28,7 +28,6 @@ const Dashboard = () => {
       <h1 className="text-4xl">Dashboard</h1>
       <div className="h-2"></div>
       <Navbar />
-      {isLoading}
       <pre>{ JSON.stringify(data, null, 2)}</pre>
     </div>
   )

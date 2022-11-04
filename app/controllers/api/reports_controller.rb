@@ -4,7 +4,7 @@ class Api::ReportsController < ApplicationController
   # GET /reports
   def index
     @reports = Report.all
-
+    sleep 4
     render json: @reports
   end
 
