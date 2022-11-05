@@ -1,24 +1,25 @@
-# README
+# Todo:
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[ ] category Index
+[ ] category Show
+[ ] category Edit
+[ ] location Index
+[ ] location Show
+[ ] location Edit
+[ ] Redirect to Login
+[ ] create sign up
+[ ] set h-min 74 to fix little box in layout style 
+[ ] create report form 
+[ ] need to add stats to top of dashboard
 
-Things you may want to cover:
+# strecth goal
+## authorization
 
-* Ruby version
+[ ] add roles to users
+[ ] restrict backend by user role
+[ ] customize frontend by role
+[ ] add tests for backend 
+[ ] confetti canon
 
-* System dependencies
 
-* Configuration
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
