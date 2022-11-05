@@ -1,14 +1,14 @@
-import Link from 'next/link'
-import Navbar from '../../components/navbar'
+import Link from "next/link";
+import Navbar from "../../components/navbar";
+import Layout from "../../components/layout";
 
 const CategoriesPage = () => {
   return (
-    <div className="p-3">
-      <h1 className="text-4xl">Categories</h1>
-      <div className="h-2"></div>
-      <Navbar />
-    </div>
-  )
-}
+    <Layout title = "Categories">
+      <div className="p-3">
+      </div>
+    </Layout>
+  );
+};
 
-export default CategoriesPage
+export default CategoriesPage;

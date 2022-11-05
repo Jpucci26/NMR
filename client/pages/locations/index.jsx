@@ -1,14 +1,14 @@
-import Link from 'next/link'
-import Navbar from '../../components/navbar'
+import Link from "next/link";
+import Navbar from "../../components/navbar";
+import Layout from "../../components/layout";
 
 const LocationsPage = () => {
   return (
-    <div className="p-3">
-      <h1 className="text-4xl">Locations</h1>
-      <div className="h-2"></div>
-      <Navbar />
-    </div>
-  )
-}
+    <Layout title = "Locations">
+      <div className="p-3">
+      </div>
+    </Layout>
+  );
+};
 
-export default LocationsPage
+export default LocationsPage;

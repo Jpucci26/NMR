@@ -1,5 +1,6 @@
 class Api::SessionsController < ApplicationController
-    skip_before_action :authorized_user
+    before_action :authorized_user, except: [:create, :delete]
+
 
 
     def create
