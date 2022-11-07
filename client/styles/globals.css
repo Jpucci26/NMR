@@ -8,3 +8,17 @@
         @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm
     }
 }
+
+
+html {
+    min-height: 100%;
+    background-color: rgb(243 244 246);
+}
+
+body {
+    min-height: 100vh;
+}
+
+#__next {
+    min-height: 100vh;
+}
