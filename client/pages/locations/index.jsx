@@ -1,12 +1,10 @@
 import Link from "next/link";
-import Navbar from "../../components/navbar";
-import {Layout} from "/components";
+import { Layout, SectionHeader} from "/components";
 
 const LocationsPage = () => {
   return (
-    <Layout title = "Locations">
-      <div className="p-3">
-      </div>
+    <Layout title="Locations">
+      <SectionHeader title="Locations"></SectionHeader>
     </Layout>
   );
 };

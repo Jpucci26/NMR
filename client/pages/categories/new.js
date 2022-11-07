@@ -2,8 +2,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useMutation } from "react-query";
-import {Layout} from "/components";
+import { Layout } from "/components";
 import { ErrorAlert } from "../../components/ErrorAlert";
+import { SectionHeader } from "../../components";
 
 const AddCategoryPage = () => {
   const router = useRouter();
@@ -45,33 +46,24 @@ const AddCategoryPage = () => {
 
   return (
     <Layout title="Categories">
-      <div className="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
-        <div className="-ml-4 -mt-2 flex flex-wrap items-center justify-between sm:flex-nowrap">
-          <div className="ml-4 mt-2">
-            <h3 className="text-lg font-medium leading-6 text-gray-900">
-              Add Category
-            </h3>
-          </div>
-          <div className="ml-4 mt-2 flex-shrink-0">
-            <Link href="/categories">
-              <button
-                type="button"
-                className="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                Cancel
-              </button>
-            </Link>
+      <SectionHeader title="Add Category">
+          <Link href="/categories">
             <button
-              type="submit"
-              className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              onClick={mutate}
-              disabled={isLoading}
+              type="button"
+              className="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
-              {isLoading ? "Saving ..." : "Save"}
+              Cancel
             </button>
-          </div>
-        </div>
-      </div>
+          </Link>
+          <button
+            type="submit"
+            className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            onClick={mutate}
+            disabled={isLoading}
+          >
+            {isLoading ? "Saving ..." : "Save"}
+          </button>
+      </SectionHeader>
       <div className="px-4 py-5 sm:px-6">
         <ErrorAlert data={data} />
 

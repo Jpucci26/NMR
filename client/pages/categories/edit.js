@@ -2,21 +2,20 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { useState, useEffect } from "react";
-import {Layout} from "/components";
+import { Layout, SectionHeader } from "/components";
 
 const EditCategoryPage = () => {
-
   // We can pull the categoryId from the URL params
   // with the useRouter library provided by Next.js
   // URL params are the items after the ? in the URL.
   // WARNING: categoryId depends on user interaction
-  // (like which category the user navigated) so it 
-  // won't be defined at build time. 
+  // (like which category the user navigated) so it
+  // won't be defined at build time.
 
   const router = useRouter();
   const categoryId = router.query.id;
 
-  // We control our Form's input values 
+  // We control our Form's input values
   // using React's useState hooks.  We would like to
   // default the current values from the database
   // but we won't have that value until our Query
@@ -39,15 +38,15 @@ const EditCategoryPage = () => {
   const { data, isSuccess, status } = useQuery({
     queryKey: `categories/${categoryId}`,
     queryFn: getCategory,
-    enabled: categoryId!==undefined,
-    onSuccess: (d)=> {
-      setName(d.name)
-    }
+    enabled: categoryId !== undefined,
+    onSuccess: (d) => {
+      setName(d.name);
+    },
   });
 
   // useQuery can return a variety of status.  To ensure
   // our main content which depends on data from useQuery
-  // only renders onSuccess we want to return this shell 
+  // only renders onSuccess we want to return this shell
   // on anything besides isSuccess
 
   if (!isSuccess) {
@@ -56,30 +55,22 @@ const EditCategoryPage = () => {
 
   return (
     <Layout title="Categories">
-      <div className="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
-        <div className="-ml-4 -mt-2 flex flex-wrap items-center justify-between sm:flex-nowrap">
-          <div className="ml-4 mt-2">
-            <h3 className="text-lg font-medium leading-6 text-gray-900">
-              {data.name}
-            </h3>
-          </div>
-          <div className="ml-4 mt-2 flex-shrink-0">
-            <Link href="/categories"><button
-              type="button"
-              className="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-            >
-              Cancel
-            </button>
-            </Link>
-            <button
-              type="submit"
-              className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-            >
-              Save
-            </button>
-          </div>
-        </div>
-      </div>
+      <SectionHeader title="Edit Category">
+        <Link href="/categories">
+          <button
+            type="button"
+            className="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          >
+            Cancel
+          </button>
+        </Link>
+        <button
+          type="submit"
+          className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        >
+          Save
+        </button>
+      </SectionHeader>
       <div className="px-4 py-5 sm:px-6">
         <form className="space-y-8 divide-y divide-gray-200">
           <div className="space-y-8 divide-y divide-gray-200">

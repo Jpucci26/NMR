@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useQuery } from "react-query";
-import {Layout} from "/components";
+import {Layout, SectionHeader} from "/components";
 
 const CategoriesPage = () => {
   const getCategories = async () => {
@@ -13,14 +13,7 @@ const CategoriesPage = () => {
 
   return (
     <Layout title="Categories">
-      <div className="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
-        <div className="-ml-4 -mt-2 flex flex-wrap items-center justify-between sm:flex-nowrap">
-          <div className="ml-4 mt-2">
-            <h3 className="text-lg font-medium leading-6 text-gray-900">
-              Index
-            </h3>
-          </div>
-          <div className="ml-4 mt-2 flex-shrink-0">
+      <SectionHeader title="Categories">
             <Link href="/categories/new">
               <button
                 type="button"
@@ -29,9 +22,7 @@ const CategoriesPage = () => {
                 Add Category
               </button>
             </Link>
-          </div>
-        </div>
-      </div>
+       </SectionHeader>
       <div className="px-4 py-5 sm:px-6">
         {data.map((category) => {
           return (
