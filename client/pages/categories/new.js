@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useMutation } from "react-query";
+import { successToastAtom } from "../../atoms/successToastAtom";
+import { useAtom } from "jotai";
 import {
   SectionHeader,
   Button,
@@ -12,6 +14,7 @@ import {
 } from "/components";
 
 const AddCategoryPage = () => {
+  const [successToast, setSuccessToast] = useAtom(successToastAtom);
   const router = useRouter();
 
   // Control Form input values
@@ -41,12 +44,11 @@ const AddCategoryPage = () => {
     mutationFn: postCategory,
     onSuccess: (d) => {
       if (!d.error) {
+        setSuccessToast("Category added successfully");
         router.push("/categories");
       }
     },
   });
-
-
 
   return (
     <Layout title="Categories">

@@ -2,8 +2,11 @@ import { useRouter } from "next/router";
 import { useQuery, useMutation } from "react-query";
 import { useState, useEffect } from "react";
 import { Layout, SectionHeader, Button, Field, SectionBody, Form, ErrorAlert } from "/components";
+import { successToastAtom } from "../../atoms/successToastAtom";
+import { useAtom } from "jotai";
 
 const EditCategoryPage = () => {
+  const [successToast, setSuccessToast] = useAtom(successToastAtom);
   const router = useRouter();
   const categoryId = router.query.id;
 
@@ -49,6 +52,7 @@ const EditCategoryPage = () => {
     mutationFn: updateCategory,
     onSuccess: (d) => {
       if (!d.error) {
+        setSuccessToast("Category updated successfully");
         router.push("/categories");
       }
     },

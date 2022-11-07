@@ -4,7 +4,7 @@ module Api
 
     # GET /categories
     def index
-      @categories = Category.all
+      @categories = Category.all.reorder(name: :asc)
 
       render json: @categories
     end
