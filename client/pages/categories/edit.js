@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { useState, useEffect } from "react";
-import { Layout, SectionHeader, Button, Field } from "/components";
+import { Layout, SectionHeader, Button, Field, SectionBody } from "/components";
 
 const EditCategoryPage = () => {
   // We can pull the categoryId from the URL params
@@ -59,7 +59,7 @@ const EditCategoryPage = () => {
         <Button label="Cancel" href="/categories" />
         <Button label="Save" onClick={() => {}} />
       </SectionHeader>
-      <div className="px-4 py-5 sm:px-6">
+      <SectionBody>
         <form className="space-y-8 divide-y divide-gray-200">
           <div className="space-y-8 divide-y divide-gray-200">
             <div>
@@ -80,7 +80,7 @@ const EditCategoryPage = () => {
             </div>
           </div>
         </form>
-      </div>
+      </SectionBody>
     </Layout>
   );
 };

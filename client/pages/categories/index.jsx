@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useQuery } from "react-query";
-import { Layout, SectionHeader, Button} from "/components";
+import { Layout, SectionHeader, Button, SectionBody } from "/components";
 
 const CategoriesPage = () => {
   const getCategories = async () => {
@@ -16,7 +16,7 @@ const CategoriesPage = () => {
       <SectionHeader title="Categories">
         <Button label="Add Category" href="/categories/new" />
       </SectionHeader>
-      <div className="px-4 py-5 sm:px-6">
+      <SectionBody>
         {data.map((category) => {
           return (
             <Link
@@ -28,7 +28,7 @@ const CategoriesPage = () => {
             </Link>
           );
         })}
-      </div>
+      </SectionBody>
     </Layout>
   );
 };

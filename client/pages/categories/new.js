@@ -1,7 +1,14 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useMutation } from "react-query";
-import { SectionHeader, Button, Layout, ErrorAlert, Field } from "/components";
+import {
+  SectionHeader,
+  Button,
+  Layout,
+  ErrorAlert,
+  Field,
+  SectionBody,
+} from "/components";
 
 const AddCategoryPage = () => {
   const router = useRouter();
@@ -47,13 +54,11 @@ const AddCategoryPage = () => {
         <Button label="Cancel" href="/categories" />
         <Button label="Save" onClick={mutate} disabled={isLoading} />
       </SectionHeader>
-      <div className="px-4 py-5 sm:px-6">
+      <SectionBody>
         <ErrorAlert data={data} />
-
         <form
           onSubmit={handleSubmit}
-          className="space-y-8 divide-y divide-gray-200"
-        >
+          className="space-y-8 divide-y divide-gray-200">
           <div className="space-y-8 divide-y divide-gray-200">
             <div>
               <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
@@ -72,7 +77,7 @@ const AddCategoryPage = () => {
             </div>
           </div>
         </form>
-      </div>
+      </SectionBody>
     </Layout>
   );
 };
