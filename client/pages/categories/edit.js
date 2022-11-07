@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { useState, useEffect } from "react";
-import { Layout, SectionHeader, Button } from "/components";
+import { Layout, SectionHeader, Button, Field } from "/components";
 
 const EditCategoryPage = () => {
   // We can pull the categoryId from the URL params
@@ -56,7 +56,7 @@ const EditCategoryPage = () => {
   return (
     <Layout title="Categories">
       <SectionHeader title="Edit Category">
-        <Button label="Cancel" href="/categories"/>
+        <Button label="Cancel" href="/categories" />
         <Button label="Save" onClick={() => {}} />
       </SectionHeader>
       <div className="px-4 py-5 sm:px-6">
@@ -65,22 +65,16 @@ const EditCategoryPage = () => {
             <div>
               <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                 <div className="sm:col-span-4">
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Name
-                  </label>
-                  <div className="mt-1">
+                  <Field name="Name">
                     <input
                       id="name"
                       name="name"
                       type="text"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="twInput"
                     />
-                  </div>
+                  </Field>
                 </div>
               </div>
             </div>

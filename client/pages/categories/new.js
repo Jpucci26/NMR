@@ -1,8 +1,7 @@
 import { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useMutation } from "react-query";
-import { SectionHeader, Button, Layout, ErrorAlert } from "/components";
+import { SectionHeader, Button, Layout, ErrorAlert, Field } from "/components";
 
 const AddCategoryPage = () => {
   const router = useRouter();
@@ -58,27 +57,17 @@ const AddCategoryPage = () => {
           <div className="space-y-8 divide-y divide-gray-200">
             <div>
               <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                <div className="sm:col-span-4">
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Name
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      id="name"
-                      name="name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      type="text"
-                      disabled={isLoading}
-                      className={`${
-                        isLoading ? "bg-gray-200" : null
-                      } block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm`}
-                    />
-                  </div>
-                </div>
+                <Field name="Name">
+                  <input
+                    id="name"
+                    name="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    type="text"
+                    disabled={isLoading}
+                    className="twInput"
+                  />
+                </Field>
               </div>
             </div>
           </div>
