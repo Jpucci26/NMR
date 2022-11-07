@@ -9,17 +9,18 @@ const ShowCategoryPage = () => {
     const res = await fetch(`/api/categories/${categoryId}`);
     return res.json();
   };
-  const { data, error, isLoading } = useQuery(
+  const { data, error, isSuccess } = useQuery(
     `categories/${categoryId}`,
     getCategory
   );
 
-  if (isLoading) return <Layout title="Categories" />;
+  if (!isSuccess) return <Layout title="Categories" />;
 
   return (
     <Layout title="Categories">
-      <SectionHeader title="Category Details">
+      <SectionHeader title={data.name}>
         <Button label="Edit" href={`/categories/edit?id=${categoryId}`} />
+        <Button label="Delete" href={`/categories/delete?id=${categoryId}`} />
       </SectionHeader>
       <SectionBody></SectionBody>
     </Layout>

@@ -16,7 +16,6 @@ module Api
 
     # POST /categories
     def create
-      sleep 3
       @category = Category.new(category_params)
 
       if @category.save
@@ -38,6 +37,9 @@ module Api
     # DELETE /categories/1
     def destroy
       @category.destroy
+      render json: @category
+    rescue StandardError => e
+      render json: { error: e.message }
     end
 
     private
