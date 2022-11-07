@@ -1,0 +1,17 @@
+require: 
+  - rubocop-rails
+  - rubocop-rspec
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+AllCops:
+  Exclude:
+    - 'bin/bundle'
+    - 'db/schema.rb'
+    - 'config/puma.rb'  
+  SuggestExtensions: false
+  NewCops: enable  

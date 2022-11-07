@@ -5,9 +5,7 @@ class Report < ApplicationRecord
 
   validates :title, presence: true
 
-  
   def created_at_fmt
-    created_at.to_fs(:short)  
+    created_at.to_fs(:short)
   end
-
 end

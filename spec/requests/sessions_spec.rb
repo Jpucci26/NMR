@@ -8,28 +8,26 @@ require 'rails_helper'
 #     end
 #   end
 
-RSpec.describe "Login" do
-  it "Accepts good password" do
-    u = 'john'
-    p = 'secretpass'
-    User.create!(username: u, password: p, password_confirmation: p)
+RSpec.describe 'Login' do
+  context 'with user john' do
+    let(:user) do
+      u = 'john'
+      p = 'password'
+      User.create!(username: u, password: p, password_confirmation: p)
+    end
 
-    post '/api/login', params: {username: u, password: p}
-    expect(response).to have_http_status(200)
-    
-    results = JSON.parse(response.body)
-    expect(results["username"]).to eq(u)
+    it 'accepts good password' do
+      post '/api/login', params: {
+        username: user.username, password: user.password
+      }
+      results = JSON.parse(response.body)
+      expect(results['username']).to eq(user.username)
+    end
+
+    it 'rejects bad password' do
+      post '/api/login', params: { username: user.username, password: 'wrong' }
+      results = JSON.parse(response.body)
+      expect(results['error']).to eq('Invalid Username or Password')
+    end
   end
-  it "Rejects bad password" do
-    u = 'john'
-    p = 'secretpass'
-    User.create!(username: u, password: p, password_confirmation: p)
-
-    post '/api/login', params: {username: u, password: "bad password"}
-    expect(response).to have_http_status(401)
-    
-    results = JSON.parse(response.body)
-    expect(results["error"]).to eq("Invalid Username or Password")
-  end
-
 end

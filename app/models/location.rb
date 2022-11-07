@@ -1,7 +1,6 @@
 class Location < ApplicationRecord
-    has_many :reports
-    has_many :categories, through: :reports
+  has_many :reports, dependent: :restrict_with_error
+  has_many :categories, through: :reports
 
-
-    validates :name, presence: true
+  validates :name, presence: true
 end
