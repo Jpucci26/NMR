@@ -7,7 +7,7 @@ class Report < ApplicationRecord
 
   
   def created_at_fmt
-    created_at.to_s(:short)
+    created_at.to_fs(:short)  
   end
 
 end

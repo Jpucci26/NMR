@@ -3,8 +3,7 @@ class Api::ReportsController < ApplicationController
 
   # GET /reports
   def index
-    @reports = Report.all
-    sleep 1
+    @reports = Report.all.includes(:user, :location, :category)
     render json: @reports
   end
 
