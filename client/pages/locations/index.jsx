@@ -4,7 +4,9 @@ import { Layout, SectionHeader} from "/components";
 const LocationsPage = () => {
   return (
     <Layout title="Locations">
-      <SectionHeader title="Locations"></SectionHeader>
+      <SectionHeader title="Locations">
+        
+      </SectionHeader>
     </Layout>
   );
 };
