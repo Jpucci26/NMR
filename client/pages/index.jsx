@@ -2,7 +2,7 @@ import Link from "next/link";
 import Navbar from "../components/navbar";
 import { useQuery } from "react-query";
 import { CalendarIcon, MapPinIcon, UsersIcon } from "@heroicons/react/20/solid";
-import Layout from "../components/layout";
+import {Layout} from "/components";
 
 const Dashboard = () => {
   const getReports = async () => {

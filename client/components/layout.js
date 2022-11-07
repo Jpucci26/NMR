@@ -24,8 +24,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Layout({children, title}) {
-
+export const Layout = ({ children, title }) => {
 const [currentUser, setCurrentUser] = useAtom(currentUserAtom)
 
 const user = {
@@ -165,7 +164,7 @@ const user = {
         <main className="-mt-32">
           <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
             {/* Replace with your content */}
-            <div className="rounded-lg bg-white px-5 py-6 h-96 shadow sm:px-6">
+            <div className="rounded-lg bg-white px-5 py-6 h-min-s96 shadow sm:px-6">
                 {children}
             </div>
             {/* /End replace */}

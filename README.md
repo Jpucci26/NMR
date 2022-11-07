@@ -12,13 +12,15 @@
 - [ ] create report form 
 - [ ] need to add stats to top of dashboard
 
-# strecth goals
-## authorization
+# authorization
 
 - [ ] add roles to users
 - [ ] restrict backend by user role
 - [ ] customize frontend by role
 - [ ] add tests for backend 
+
+# stretch goals
+
 - [ ] confetti canon
 
 
