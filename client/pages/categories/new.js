@@ -18,6 +18,8 @@ const AddCategoryPage = () => {
   // with React's useState Hooks
   const [name, setName] = useState("");
 
+  // Add Category Mutation
+
   const postCategory = async () => {
     const formData = {
       category: {
@@ -44,10 +46,7 @@ const AddCategoryPage = () => {
     },
   });
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    mutate();
-  }
+
 
   return (
     <Layout title="Categories">

@@ -1,41 +1,23 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import { useState, useEffect } from "react";
-import { Layout, SectionHeader, Button, Field, SectionBody, Form } from "/components";
+import { Layout, SectionHeader, Button, Field, SectionBody, Form, ErrorAlert } from "/components";
 
 const EditCategoryPage = () => {
-  // We can pull the categoryId from the URL params
-  // with the useRouter library provided by Next.js
-  // URL params are the items after the ? in the URL.
-  // WARNING: categoryId depends on user interaction
-  // (like which category the user navigated) so it
-  // won't be defined at build time.
-
   const router = useRouter();
   const categoryId = router.query.id;
 
-  // We control our Form's input values
-  // using React's useState hooks.  We would like to
-  // default the current values from the database
-  // but we won't have that value until our Query
-  // returns data.  For now let's set it to empty
-  // string.
-
   const [name, setName] = useState("");
 
-  // This useQuery Depends on categoryId being defined
-  // which we know will be undefined during build.
-  // To prevent useQuery from firing when categoryId is
-  // undefined we can make it a condition of being enabled.
-  // https://tanstack.com/query/v4/docs/guides/dependent-queries
 
+  // get category details
+  
   const getCategory = async () => {
     const res = await fetch(`/api/categories/${categoryId}`);
     return res.json();
   };
 
-  const { data, isSuccess, status } = useQuery({
+  const { isSuccess, status } = useQuery({
     queryKey: `categories/${categoryId}`,
     queryFn: getCategory,
     enabled: categoryId !== undefined,
@@ -44,10 +26,37 @@ const EditCategoryPage = () => {
     },
   });
 
-  // useQuery can return a variety of status.  To ensure
-  // our main content which depends on data from useQuery
-  // only renders onSuccess we want to return this shell
-  // on anything besides isSuccess
+  // update category mutation 
+
+  const updateCategory = async () => {
+    const formData = {
+      category: {
+        name: name,
+      },
+    };
+    const res = await fetch(`/api/categories/${categoryId}`, {
+      method: "put",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return res.json();
+  };
+
+  const { mutate, data, isLoading } = useMutation({
+    mutationKey: "Update Category",
+    mutationFn: updateCategory,
+    onSuccess: (d) => {
+      if (!d.error) {
+        router.push("/categories");
+      }
+    },
+  });
+
+  
+
+
 
   if (!isSuccess) {
     return <Layout title="Categories">{status}</Layout>;
@@ -57,10 +66,11 @@ const EditCategoryPage = () => {
     <Layout title="Categories">
       <SectionHeader title="Edit Category">
         <Button label="Cancel" href="/categories" />
-        <Button label="Save" onClick={() => {}} />
+        <Button label="Save" disabled={isLoading} onClick={mutate} />
       </SectionHeader>
       <SectionBody>
-        <Form onSubmit={() => {}}>
+        <ErrorAlert data={data}/>
+        <Form onSubmit={mutate}>
           <Field name="Name">
             <input
               id="name"
@@ -69,6 +79,8 @@ const EditCategoryPage = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="twInput"
+              disabled={isLoading}
+              autoFocus
             />
           </Field>
         </Form>
