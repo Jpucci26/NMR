@@ -8,6 +8,7 @@ import {
   ErrorAlert,
   Field,
   SectionBody,
+  Form,
 } from "/components";
 
 const AddCategoryPage = () => {
@@ -56,27 +57,19 @@ const AddCategoryPage = () => {
       </SectionHeader>
       <SectionBody>
         <ErrorAlert data={data} />
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-8 divide-y divide-gray-200">
-          <div className="space-y-8 divide-y divide-gray-200">
-            <div>
-              <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                <Field name="Name">
-                  <input
-                    id="name"
-                    name="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    type="text"
-                    disabled={isLoading}
-                    className="twInput"
-                  />
-                </Field>
-              </div>
-            </div>
-          </div>
-        </form>
+        <Form onSubmit={mutate}>
+          <Field name="Name">
+            <input
+              id="name"
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              type="text"
+              disabled={isLoading}
+              className="twInput"
+            />
+          </Field>
+        </Form>
       </SectionBody>
     </Layout>
   );

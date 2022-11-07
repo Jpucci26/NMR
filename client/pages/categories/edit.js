@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { useState, useEffect } from "react";
-import { Layout, SectionHeader, Button, Field, SectionBody } from "/components";
+import { Layout, SectionHeader, Button, Field, SectionBody, Form } from "/components";
 
 const EditCategoryPage = () => {
   // We can pull the categoryId from the URL params
@@ -60,26 +60,18 @@ const EditCategoryPage = () => {
         <Button label="Save" onClick={() => {}} />
       </SectionHeader>
       <SectionBody>
-        <form className="space-y-8 divide-y divide-gray-200">
-          <div className="space-y-8 divide-y divide-gray-200">
-            <div>
-              <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                <div className="sm:col-span-4">
-                  <Field name="Name">
-                    <input
-                      id="name"
-                      name="name"
-                      type="text"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      className="twInput"
-                    />
-                  </Field>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
+        <Form onSubmit={() => {}}>
+          <Field name="Name">
+            <input
+              id="name"
+              name="name"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="twInput"
+            />
+          </Field>
+        </Form>
       </SectionBody>
     </Layout>
   );
