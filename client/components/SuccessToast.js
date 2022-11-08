@@ -28,8 +28,8 @@ export const SuccessToast = () => {
   const runAnimation = () => {
     if (successToast) {
       setShow(true)
-      setTimeout(hideToast, 2500);
-      setTimeout(clearToast, 3000);
+      setTimeout(hideToast, 1500);
+      setTimeout(clearToast, 1000);
     }
   };
 
