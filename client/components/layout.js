@@ -1,40 +1,36 @@
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import  {currentUserAtom}  from '../atoms/currentUseratom';
-import { atom, useAtom } from 'jotai'
-import Link from 'next/link'
-import { SuccessToast } from '/components';
-
-
-
+import { Fragment } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { currentUserAtom } from "../atoms/currentUseratom";
+import { atom, useAtom } from "jotai";
+import Link from "next/link";
+import { SuccessToast } from "/components";
 
 const navigation = [
-  { name: 'Dashboard', href: '/', current: false },
-  { name: 'Submit Report', href: '/reports/new', current: false },
-  { name: 'Locations', href: '/locations', current: false },
-  { name: 'Categories', href: '/categories', current: false }
-]
+  { name: "Dashboard", href: "/", current: false },
+  { name: "Submit Report", href: "/reports/new", current: false },
+  { name: "Locations", href: "/locations", current: false },
+  { name: "Categories", href: "/categories", current: false },
+];
 const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
-]
+  { name: "Your Profile", href: "#" },
+  { name: "Settings", href: "#" },
+  { name: "Sign out", href: "#" },
+];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 export const Layout = ({ children, title }) => {
-const [currentUser, setCurrentUser] = useAtom(currentUserAtom)
+  const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
 
-const user = {
-    name: 'Tom Cook',
-    email: 'tom@example.com',
+  const user = {
+    name: "Tom Cook",
+    email: "tom@example.com",
     imageUrl:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  }
-
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+  };
 
   return (
     <>
@@ -46,7 +42,7 @@ const user = {
         <body class="h-full">
         ```
       */}
-      <div className="min-h-full">
+      <div className="flex flex-col min-h-screen">
         <div className="bg-gray-800 pb-32">
           <Disclosure as="nav" className="bg-gray-800">
             {({ open }) => (
@@ -70,11 +66,11 @@ const user = {
                                 href={item.href}
                                 className={classNames(
                                   item.current
-                                    ? 'bg-gray-900 text-white'
-                                    : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                                  'px-3 py-2 rounded-md text-sm font-medium'
+                                    ? "bg-gray-900 text-white"
+                                    : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                                  "px-3 py-2 rounded-md text-sm font-medium"
                                 )}
-                                aria-current={item.current ? 'page' : undefined}
+                                aria-current={item.current ? "page" : undefined}
                               >
                                 {item.name}
                               </Link>
@@ -84,9 +80,16 @@ const user = {
                       </div>
                       <div className="hidden md:block">
                         <div className="ml-4 flex items-center md:ml-6">
-                          { currentUser !== null ?
-                        <span className="h-8 w-8 rounded-full text-gray-200"  alt="">{currentUser.username}</span>
-                          : <></> }
+                          {currentUser !== null ? (
+                            <span
+                              className="h-8 w-8 rounded-full text-gray-200"
+                              alt=""
+                            >
+                              {currentUser.username}
+                            </span>
+                          ) : (
+                            <></>
+                          )}
                         </div>
                       </div>
                       <div className="-mr-2 flex md:hidden">
@@ -94,9 +97,15 @@ const user = {
                         <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                           <span className="sr-only">Open main menu</span>
                           {open ? (
-                            <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                            <XMarkIcon
+                              className="block h-6 w-6"
+                              aria-hidden="true"
+                            />
                           ) : (
-                            <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                            <Bars3Icon
+                              className="block h-6 w-6"
+                              aria-hidden="true"
+                            />
                           )}
                         </Disclosure.Button>
                       </div>
@@ -112,10 +121,12 @@ const user = {
                         as={Link}
                         href={item.href}
                         className={classNames(
-                          item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'block px-3 py-2 rounded-md text-base font-medium'
+                          item.current
+                            ? "bg-gray-900 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          "block px-3 py-2 rounded-md text-base font-medium"
                         )}
-                        aria-current={item.current ? 'page' : undefined}
+                        aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
                       </Disclosure.Button>
@@ -124,11 +135,19 @@ const user = {
                   <div className="border-t border-gray-700 pt-4 pb-3">
                     <div className="flex items-center px-5">
                       <div className="flex-shrink-0">
-                        <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
+                        <img
+                          className="h-10 w-10 rounded-full"
+                          src={user.imageUrl}
+                          alt=""
+                        />
                       </div>
                       <div className="ml-3">
-                        <div className="text-base font-medium leading-none text-white">{user.name}</div>
-                        <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
+                        <div className="text-base font-medium leading-none text-white">
+                          {user.name}
+                        </div>
+                        <div className="text-sm font-medium leading-none text-gray-400">
+                          {user.email}
+                        </div>
                       </div>
                       <button
                         type="button"
@@ -157,22 +176,23 @@ const user = {
           </Disclosure>
           <header className="py-10">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <h1 className="text-3xl font-bold tracking-tight text-white">{title}</h1>
+              <h1 className="text-3xl font-bold tracking-tight text-white">
+                {title}
+              </h1>
             </div>
           </header>
         </div>
 
-        <main className="-mt-32">
-          <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+        <main className="flex flex-col grow -mt-32 h-full">
+          <div className="grow flex flex-col max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
             {/* Replace with your content */}
-            <div className="rounded-lg bg-white px-5 py-6 h-min-s96 shadow sm:px-6">
-                <SuccessToast />
-                {children}
+            <div className="rounded-lg bg-white grow px-5 py-6 h-min-s96 shadow sm:px-6">
+              {children}
             </div>
             {/* /End replace */}
           </div>
         </main>
       </div>
     </>
-  )
-}
+  );
+};

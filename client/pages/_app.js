@@ -1,36 +1,31 @@
-import '../styles/globals.css'
-import { useEffect, useState } from 'react'
-import  {currentUserAtom}  from '../atoms/currentUseratom';
-import { atom, useAtom } from 'jotai'
-import { QueryClient, QueryClientProvider } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
+import "../styles/globals.css";
+import { useEffect, useState } from "react";
+import { currentUserAtom } from "../atoms/currentUseratom";
+import { atom, useAtom } from "jotai";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { SuccessToast } from "/components";
 
-const queryClient = new QueryClient()
-
+const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }) {
-
-  const [currentUser, setCurrentUser] = useAtom(currentUserAtom)
+  const [currentUser, setCurrentUser] = useAtom(currentUserAtom);
 
   useEffect(() => {
-    fetch("/authorized_user")
-    .then((r) => {
+    fetch("/authorized_user").then((r) => {
       if (r.ok) {
-        r.json()
-        .then((user) => 
-        setCurrentUser(user));
+        r.json().then((user) => setCurrentUser(user));
       }
     });
   }, []);
-  
-  console.log(currentUser)
 
+  console.log(currentUser);
 
   return (
-   <QueryClientProvider client={queryClient}>
-      <Component {...pageProps}/>
+    <QueryClientProvider client={queryClient}>
+      <SuccessToast />
+      <Component {...pageProps} />
       <ReactQueryDevtools />
     </QueryClientProvider>
-  )
-
+  );
 }
