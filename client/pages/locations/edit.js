@@ -1,7 +1,15 @@
 import { useRouter } from "next/router";
 import { useQuery, useMutation } from "react-query";
 import { useState, useEffect } from "react";
-import { Layout, SectionHeader, Button, Field, SectionBody, Form, ErrorAlert } from "/components";
+import {
+  Layout,
+  SectionHeader,
+  Button,
+  Field,
+  SectionBody,
+  Form,
+  ErrorAlert,
+} from "/components";
 import { successToastAtom } from "../../atoms/successToastAtom";
 import { useAtom } from "jotai";
 
@@ -12,9 +20,8 @@ const EditLocationPage = () => {
 
   const [name, setName] = useState("");
 
-
   // get location details
-  
+
   const getLocation = async () => {
     const res = await fetch(`/api/locations/${locationId}`);
     return res.json();
@@ -29,7 +36,7 @@ const EditLocationPage = () => {
     },
   });
 
-  // update location mutation 
+  // update location mutation
 
   const updateLocation = async () => {
     const formData = {
@@ -58,10 +65,6 @@ const EditLocationPage = () => {
     },
   });
 
-  
-
-
-
   if (!isSuccess) {
     return <Layout title="Locations">{status}</Layout>;
   }
@@ -73,7 +76,7 @@ const EditLocationPage = () => {
         <Button label="Save" disabled={isLoading} onClick={mutate} />
       </SectionHeader>
       <SectionBody>
-        <ErrorAlert data={data}/>
+        <ErrorAlert data={data} />
         <Form onSubmit={mutate}>
           <Field name="Name">
             <input

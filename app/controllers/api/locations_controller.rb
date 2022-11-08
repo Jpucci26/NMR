@@ -37,6 +37,9 @@ module Api
     # DELETE /locations/1
     def destroy
       @location.destroy
+      render json: @location
+    rescue StandardError => e
+      render json: { error: e.message }
     end
 
     private
