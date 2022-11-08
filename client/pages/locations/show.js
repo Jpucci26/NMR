@@ -20,6 +20,7 @@ const ShowLocationsPage = () => {
   return (
     <Layout title="Locations">
       <SectionHeader title={data.name}>
+        <Button label="Back" href="/locations" />
         <Button label="Edit" href={`/locations/edit?id=${locationId}`} />
         <Button label="Delete" href={`/locations/delete?id=${locationId}`} />
       </SectionHeader>

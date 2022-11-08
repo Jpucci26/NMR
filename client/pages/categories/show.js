@@ -19,6 +19,7 @@ const ShowCategoryPage = () => {
   return (
     <Layout title="Categories">
       <SectionHeader title={data.name}>
+        <Button label="Back" href="/categories" />
         <Button label="Edit" href={`/categories/edit?id=${categoryId}`} />
         <Button label="Delete" href={`/categories/delete?id=${categoryId}`} />
       </SectionHeader>
