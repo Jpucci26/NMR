@@ -3,12 +3,14 @@ import { LockClosedIcon } from '@heroicons/react/20/solid'
 import { useRouter } from 'next/router';
 import  {currentUserAtom}  from '../../atoms/currentUseratom';
 import { useAtom } from 'jotai';
+import { redirectAtom } from '../../atoms/redirectAtom';
 
 
 export default function LoginPage() {
 
 
     const [currentUser, setCurrentUser] = useAtom(currentUserAtom)
+    const [redirect, setRedirect] = useAtom(redirectAtom)
     const router = useRouter()
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
@@ -29,9 +31,9 @@ export default function LoginPage() {
         }).then((r) => {
         if (r.ok){
             r.json().then(data => {
-                console.log(data)
+                // console.log(data)
                 setCurrentUser(data)
-                router.push(`/`)
+                router.push(redirect)
             })
             }else {
                 r.json().then(json => setErrors(json.error))

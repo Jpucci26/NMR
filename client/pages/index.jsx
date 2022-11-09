@@ -2,20 +2,22 @@ import Link from "next/link";
 import Navbar from "../components/navbar";
 import { useQuery } from "react-query";
 import { CalendarIcon, MapPinIcon, UsersIcon } from "@heroicons/react/20/solid";
-import {Layout} from "/components";
+import { Layout, ErrorAlert } from "/components";
 
 const Dashboard = () => {
   const getReports = async () => {
     const res = await fetch("/api/reports");
     return res.json();
   };
-  const { data, error, isLoading } = useQuery("reports", getReports);
+  const { data, error, isLoading, isSuccess } = useQuery("reports", getReports);
   console.log({ data: data });
 
-  return (
-    <Layout title = "Dashboard">
-      <div className="p-3">
-        {data !== undefined ? (
+  if (data?.error || data === undefined) {
+    return <ErrorAlert data={data} />;
+  } else {
+    return (
+      <Layout title="Dashboard">
+        <div className="p-3">
           <div className="overflow-hidden bg-white shadow sm:rounded-md">
             <ul role="list" className="divide-y divide-gray-200">
               {data.map((report) => (
@@ -69,12 +71,10 @@ const Dashboard = () => {
               ))}
             </ul>
           </div>
-        ) : (
-          <></>
-        )}
-      </div>
-    </Layout>
-  );
+        </div>
+      </Layout>
+    );
+  }
 };
 
 export default Dashboard;

@@ -1,7 +1,7 @@
 module Api
   class UsersController < ApplicationController
     # scaffold toook the wheel here
-    before_action :set_user, only: %i[show update destroy]
+    before_action :set_current_user, only: %i[show update destroy show_current_user]
 
     # GET /users
     def index
@@ -12,7 +12,12 @@ module Api
 
     # GET /users/1
     def show
-      render json: @currentUser, status: :ok
+      render json: @user, status: :ok
+    end
+
+    # GET /api/show_current_user
+    def show_current_user
+      render json: @current_user, status: :ok
     end
 
     # POST /users

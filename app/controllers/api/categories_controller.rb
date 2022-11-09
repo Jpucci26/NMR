@@ -57,7 +57,7 @@ module Api
 
     # Only allow a list of trusted parameters through.
     def category_params
-      params.require(:category).permit(:name)
+      params.require(:category).permit(:name, :description, :status, :user_id)
     end
   end
 end

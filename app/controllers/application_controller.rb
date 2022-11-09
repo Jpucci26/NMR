@@ -4,13 +4,13 @@ class ApplicationController < ActionController::API
   # is this necessarry for the below code line 24
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
-  # before_action :authorized_user
+  before_action :set_current_user
 
   private
 
-  def authorized_user
+  def set_current_user
     @current_user = User.find_by(id: session[:user_id])
-    render json: { error: 'Not Authorized' }, status: :unauthorized unless @current_user
+    render json: { error: 'Not Logged In' } unless @current_user
   end
 
   #     is this necessarry after scaffold?

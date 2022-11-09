@@ -1,6 +1,12 @@
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
-import { Layout, SectionHeader, Button, SectionBody, ErrorAlert } from "/components";
+import {
+  Layout,
+  SectionHeader,
+  Button,
+  SectionBody,
+  ErrorAlert,
+} from "/components";
 
 const UserDetail = ({ user }) => {
   if (!user) {
@@ -20,13 +26,15 @@ const UserDetail = ({ user }) => {
   }
 };
 
-const CategoryDetails = ({category}) => {
-  return (<div className="mt-2 mb-2 bg-gray-50 text-gray-800 text-sm p-2">
-    <p>Name: {category.name}</p>
-    <p>Description: {category.description}</p>
-    <p>Status: {category.status}</p>
-  </div>)
-}
+const CategoryDetails = ({ category }) => {
+  return (
+    <div className="mt-2 mb-2 bg-gray-50 text-gray-800 text-sm p-2">
+      <p>Name: {category.name}</p>
+      <p>Description: {category.description}</p>
+      <p>Status: {category.status}</p>
+    </div>
+  );
+};
 
 const ListReports = ({ categoryId }) => {
   const getReports = async () => {
@@ -37,14 +45,13 @@ const ListReports = ({ categoryId }) => {
     `/categories/${categoryId}/reports`,
     getReports
   );
-  console.log({data})
 
   if (!isSuccess || data?.error) {
     return (
       <>
-      <ErrorAlert data={data}/>
+        <ErrorAlert data={data} />
       </>
-      );
+    );
   } else {
     return (
       <>
@@ -67,7 +74,12 @@ const ShowCategoryPage = () => {
     const res = await fetch(`/api/categories/${categoryId}`);
     return res.json();
   };
-  const { data, isSuccess } = useQuery(`categories/${categoryId}`, getCategory);
+
+  const { data, isSuccess } = useQuery({
+    queryKey: `categories/${categoryId}`,
+    queryFn: getCategory,
+    enabled: categoryId !== undefined,
+  });
 
   if (!isSuccess) return <Layout title="Categories" />;
 

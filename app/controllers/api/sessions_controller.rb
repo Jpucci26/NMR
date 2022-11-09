@@ -1,6 +1,6 @@
 module Api
   class SessionsController < ApplicationController
-    before_action :authorized_user, except: %i[create delete]
+    before_action :set_current_user, except: %i[create delete]
 
     def create
       Rails.logger.debug params

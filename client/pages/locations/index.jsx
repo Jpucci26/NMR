@@ -7,9 +7,9 @@ const LocationsPage = () => {
     const res = await fetch("/api/locations");
     return res.json();
   };
-  const { data, error, isLoading } = useQuery("locations", getLocations);
+  const { data } = useQuery("locations", getLocations);
 
-  if (isLoading) return <Layout title="Locations" />;
+  if (!data || data.error) return <Layout title="Locations" />;
 
   return (
     <Layout title="Locations">

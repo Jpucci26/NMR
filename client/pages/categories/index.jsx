@@ -7,9 +7,9 @@ const CategoriesPage = () => {
     const res = await fetch("/api/categories");
     return res.json();
   };
-  const { data, error, isLoading } = useQuery("categories", getCategories);
+  const { data } = useQuery("categories", getCategories);
 
-  if (isLoading) return <Layout title="Categories" />;
+  if (!data || data.error) return <Layout title="Categories" />;
 
   return (
     <Layout title="Categories">
