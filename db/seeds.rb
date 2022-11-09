@@ -1,5 +1,11 @@
-User.create(username: 'Jake', password: '1234', password_confirmation: '1234')
-User.create(username: 'Sunny', password: 'Sunny', password_confirmation: 'Sunny')
+User.create!(username: 'Jake', password: '1234', password_confirmation: '1234', email: 'jake@safeco.com',
+             title: 'Safety Officer', phone: '(555) 123-2323')
+User.create!(username: 'Sunny', password: '1234', password_confirmation: '1234', email: 'sunny@safeco.com',
+             title: 'HR Director', phone: '(555) 654-6543')
+User.create!(username: 'Lindsy', password: '1234', password_confirmation: '1234', email: 'linsy@safeco.com',
+             title: 'Facility Manager', phone: '(555) 749-4500')
+User.create!(username: 'John', password: '1234', password_confirmation: '1234', email: 'john@safeco.com',
+             title: 'Operations Director', phone: '(555) 349-6009')
 
 locations = [
   'Yard A',
@@ -28,7 +34,10 @@ categories = [
 ]
 
 categories.each do |name|
-  Category.create!(name: name)
+  u = User.all.sample
+  d = Faker::Lorem.paragraph(sentence_count: 1)
+  s = 'active'
+  Category.create!(name: name, status: s, description: d, user: u)
 end
 
 1.upto(100) do

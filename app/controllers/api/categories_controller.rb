@@ -1,12 +1,18 @@
 module Api
   class CategoriesController < ApplicationController
-    before_action :set_category, only: %i[show update destroy]
+    before_action :set_category, only: %i[show update destroy reports]
 
     # GET /categories
     def index
       @categories = Category.all.reorder(name: :asc)
 
       render json: @categories
+    end
+
+    # GET /categories/1/reports
+    def reports
+      @reports = @category.reports
+      render json: @reports
     end
 
     # GET /categories/1
