@@ -9,13 +9,13 @@ export const Button = ({ label, href, onClick, disabled = false }) => {
 
     return (
       <Link href={href} disabled={disabled}>
-        <button
+        <span
           disabled={disabled}
           type="button"
           className={linkStyle}
         >
           {label}
-        </button>
+        </span>
       </Link>
     );
   }
