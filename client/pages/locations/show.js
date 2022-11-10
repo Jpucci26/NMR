@@ -2,6 +2,11 @@ import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { Layout, SectionHeader, Button, SectionBody } from "/components";
 
+
+
+
+
+
 const ShowLocationsPage = () => {
   const router = useRouter();
   const locationId = router.query.id;

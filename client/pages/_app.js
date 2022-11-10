@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     fetch("/api/current_user").then((r) => {
-      console.log({ r });
+      // console.log({ r });
       if (r.ok) {
         r.json().then((user) => {
           if (user.error) {
@@ -34,7 +34,7 @@ export default function App({ Component, pageProps }) {
     });
   }, []);
 
-  console.log(currentUser);
+  // console.log(currentUser);
 
   return (
     <QueryClientProvider client={queryClient}>

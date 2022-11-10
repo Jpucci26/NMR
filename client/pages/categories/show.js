@@ -7,7 +7,7 @@ import {
   SectionBody,
   ErrorAlert,
 } from "/components";
-
+//
 const UserDetail = ({ user }) => {
   if (!user) {
     return <></>;
@@ -25,7 +25,7 @@ const UserDetail = ({ user }) => {
     );
   }
 };
-
+//
 const CategoryDetails = ({ category }) => {
   return (
     <div className="mt-2 mb-2 bg-gray-50 text-gray-800 text-sm p-2">
@@ -35,7 +35,7 @@ const CategoryDetails = ({ category }) => {
     </div>
   );
 };
-
+//
 const ListReports = ({ categoryId }) => {
   const getReports = async () => {
     const res = await fetch(`/api/categories/${categoryId}/reports`);
@@ -90,7 +90,6 @@ const ShowCategoryPage = () => {
         <Button label="Edit" href={`/categories/edit?id=${categoryId}`} />
         <Button label="Delete" href={`/categories/delete?id=${categoryId}`} />
       </SectionHeader>
-
       <SectionBody>
         <CategoryDetails category={data} />
         <div className="flex">

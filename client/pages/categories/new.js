@@ -42,9 +42,11 @@ const SelectUserField = ({ setUserId, userId }) => {
             value={userId}
             onChange={(e) => setUserId(e.target.value)}
             className="twInput"
-            // disabled={isLoading}
           >
-            <option selected value> -- Select Name  -- </option>
+            <option selected value>
+              {" "}
+              -- Select Name --{" "}
+            </option>
             {data.map((user) => (
               <option value={user.id}>{user.username}</option>
             ))}
@@ -62,7 +64,6 @@ const AddCategoryPage = () => {
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("active");
   const [userId, setUserId] = useState("");
-
 
   // Add Category Mutation
 

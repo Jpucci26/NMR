@@ -47,8 +47,7 @@ module Api
 
     # Only allow a list of trusted parameters through.
     def report_params
-      params.require(:report).permit(:user_id, :title, :description, :location_id, :category_id, :corrective_action,
-                                     :final_action)
+      params.require(:report).permit(:user_id, :title, :description, :location_id, :category_id)
     end
   end
 end
