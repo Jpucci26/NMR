@@ -226,9 +226,7 @@ const Dashboard = () => {
     if (selectedOrder === "newest") {
       data = data.sort((a, b) => b.id - a.id);
     } else if (selectedOrder === "oldest") {
-      data = data.sort(
-        (a, b) => a.id - b.id
-      );
+      data = data.sort((a, b) => a.id - b.id);
     }
 
     return (
@@ -256,7 +254,10 @@ const Dashboard = () => {
             <ul role="list" className="divide-y divide-gray-200">
               {data.map((report) => (
                 <li key={report.id}>
-                  <a href="#" className="block hover:bg-gray-50">
+                  <Link
+                    href={`/reports/show?id=${report.id}`}
+                    className="block hover:bg-gray-50"
+                  >
                     <div className="px-4 py-4 sm:px-6">
                       <div className="flex items-center justify-between">
                         <div>
@@ -304,7 +305,7 @@ const Dashboard = () => {
                         </div>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
