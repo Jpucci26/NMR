@@ -20,7 +20,7 @@ const SelectStatus = ({ selectedStatuses, setSelectedStatuses }) => {
 
   return (
     <>
-      <h3 className="mb-2 text-lg">Status</h3>
+      <h3 className="mb-2 mt-2 text-lg">Status</h3>
       <div className="space-y-1">
         {["pending_corrective_action", "pending_final_action", "closed"].map(
           (status) => {
@@ -161,12 +161,45 @@ const SelectLocations = ({ selectedLocations, setSelectedLocations }) => {
   );
 };
 
+const SelectOrder = ({ selectedOrder, setSelectedOrder }) => {
+  return (
+    <>
+      <h3 className="mb-2 mt-2 text-lg">Order</h3>
+      <div className="space-y-1">
+        {["newest", "oldest"].map((order) => {
+          return (
+            <div className="relative flex">
+              <div className="flex h-5 items-center">
+                <input
+                  id={order}
+                  onClick={() => setSelectedOrder(order)}
+                  aria-describedby="report-order"
+                  name={order}
+                  checked={selectedOrder === order}
+                  type="radio"
+                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                />
+              </div>
+              <div className="ml-3 text-sm">
+                <label htmlFor={order} className="font-medium text-gray-700">
+                  {order}
+                </label>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </>
+  );
+};
+
 const Dashboard = () => {
   const [selectedStatuses, setSelectedStatuses] = useState([
     "pending_corrective_action",
   ]);
   const [selectedCategoryIds, setSelectedCategoryIds] = useState([]);
   const [selectedLocations, setSelectedLocations] = useState([]);
+  const [selectedOrder, setSelectedOrder] = useState("newest");
 
   const getReports = async () => {
     const res = await fetch("/api/reports");
@@ -190,12 +223,22 @@ const Dashboard = () => {
         selectedLocations.includes(report.location.id)
       );
     }
-  
-  
+    if (selectedOrder === "newest") {
+      data = data.sort((a, b) => b.id - a.id);
+    } else if (selectedOrder === "oldest") {
+      data = data.sort(
+        (a, b) => a.id - b.id
+      );
+    }
+
     return (
       <Layout title="Dashboard">
         <div className="flex flex-row">
           <div className="w-64 p-2">
+            <SelectOrder
+              selectedOrder={selectedOrder}
+              setSelectedOrder={setSelectedOrder}
+            />
             <SelectStatus
               selectedStatuses={selectedStatuses}
               setSelectedStatuses={setSelectedStatuses}

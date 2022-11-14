@@ -1,5 +1,5 @@
 class ReportSerializer < ActiveModel::Serializer
-  attributes :id, :title, :description, :corrective_action, :final_action, :status, :created_at_fmt
+  attributes :id, :title, :description, :corrective_action, :final_action, :status, :created_at_fmt, :created_at
   has_one :user
   has_one :location
   has_one :category
