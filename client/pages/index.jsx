@@ -1,7 +1,11 @@
 import Link from "next/link";
-import Navbar from "../components/navbar";
 import { useQuery } from "react-query";
-import { CalendarIcon, MapPinIcon, UsersIcon } from "@heroicons/react/20/solid";
+import {
+  CalendarIcon,
+  MapPinIcon,
+  UsersIcon,
+  TagIcon,
+} from "@heroicons/react/20/solid";
 import { Layout, ErrorAlert } from "/components";
 
 const Dashboard = () => {
@@ -9,7 +13,7 @@ const Dashboard = () => {
     const res = await fetch("/api/reports");
     return res.json();
   };
-  const { data, error, isLoading, isSuccess } = useQuery("reports", getReports);
+  const { data } = useQuery("reports", getReports);
   console.log({ data: data });
 
   if (data?.error || data === undefined) {
@@ -40,11 +44,18 @@ const Dashboard = () => {
                       <div className="mt-2 sm:flex sm:justify-between">
                         <div className="sm:flex">
                           <p className="flex items-center text-sm text-gray-500">
-                            <UsersIcon
+                            <TagIcon
                               className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
                               aria-hidden="true"
                             />
                             {report.category.name}
+                          </p>
+                          <p className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
+                            <UsersIcon
+                              className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
+                              aria-hidden="true"
+                            />
+                            {report.user.username}
                           </p>
                           <p className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
                             <MapPinIcon
@@ -60,9 +71,6 @@ const Dashboard = () => {
                             aria-hidden="true"
                           />
                           {report.created_at_fmt}
-                          {/* <p>
-                      <time dateTime={position.closeDate}>{position.closeDateFull}</time>
-                    </p> */}
                         </div>
                       </div>
                     </div>

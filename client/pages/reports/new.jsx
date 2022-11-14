@@ -22,12 +22,12 @@ const SelectLocationField = ({ locationId, setLocationId }) => {
   };
 
   const { data, isSuccess } = useQuery({
-    queryKey: "uniqueLocations",
+    queryKey: "LocationsField",
     queryFn: getLocations,
   });
   // console.log({Location_data: data})
 
-  if (!isSuccess || data?.error) {
+  if (!isSuccess || !data) {
     return (
       <>
         <ErrorAlert data={data} />
@@ -63,7 +63,7 @@ const SelectCategoryField = ({ categoryId, setCategoryId }) => {
   };
 
   const { data, isSuccess } = useQuery({
-    queryKey: "uniqueCategories",
+    queryKey: "CategoriesField",
     queryFn: getCategories,
   });
   // console.log({Category_data: data})
@@ -97,46 +97,46 @@ const SelectCategoryField = ({ categoryId, setCategoryId }) => {
   }
 };
 
-const SelectUserField = ({ userId, setUserId }) => {
-  const getUsers = async () => {
-    const res = await fetch("/api/users");
-    return res.json();
-  };
+// const SelectUserField = ({ userId, setUserId }) => {
+//   const getUsers = async () => {
+//     const res = await fetch("/api/users");
+//     return res.json();
+//   };
 
-  const { data, isSuccess } = useQuery({
-    queryKey: "uniqueUsers",
-    queryFn: getUsers,
-  });
-  console.log({User_data: data})
+//   const { data, isSuccess } = useQuery({
+//     queryKey: "UsersField",
+//     queryFn: getUsers,
+//   });
+//   // console.log({User_data: data})
 
-  if (!isSuccess || data?.error) {
-    return (
-      <>
-        <ErrorAlert data={data} />
-      </>
-    );
-  } else {
-    return (
-      <>
-        <Field name="Category Lead">
-          <select
-            id="Users"
-            name="Users"
-            type="text"
-            value={userId}
-            onChange={(e) => setUserId(e.target.value)}
-            className="twInput"
-          >
-            <option value="">-- Select Name --</option>
-            {data.map((user) => (
-              <option value={user.id}>{user.username}</option>
-            ))}
-          </select>
-        </Field>
-      </>
-    );
-  }
-};
+//   if (!isSuccess || data?.error) {
+//     return (
+//       <>
+//         <ErrorAlert data={data} />
+//       </>
+//     );
+//   } else {
+//     return (
+//       <>
+//         <Field name="Submitted By">
+//           <select
+//             id="Users"
+//             name="Users"
+//             type="text"
+//             value={userId}
+//             onChange={(e) => setUserId(e.target.value)}
+//             className="twInput"
+//           >
+//             <option value="">-- Select Name --</option>
+//             {data.map((user) => (
+//               <option value={user.id}>{user.username}</option>
+//             ))}
+//           </select>
+//         </Field>
+//       </>
+//     );
+//   }
+// };
 
 const NewReportPage = () => {
   const router = useRouter();
@@ -217,7 +217,7 @@ const NewReportPage = () => {
             categoryId={categoryId}
             setCategoryId={setCategoryId}
           />
-          <SelectUserField userId={userId} setUserId={setUserId} />
+          {/* <SelectUserField userId={userId} setUserId={setUserId} /> */}
         </Form>
       </SectionBody>
     </Layout>

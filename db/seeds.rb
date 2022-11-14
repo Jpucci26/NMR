@@ -40,7 +40,7 @@ categories.each do |name|
   Category.create!(name: name, status: s, description: d, user: u)
 end
 
-1.upto(100) do
+1.upto(10) do
   l = Location.all.sample
   c = Category.all.sample
   u = User.all.sample

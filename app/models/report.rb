@@ -4,6 +4,8 @@ class Report < ApplicationRecord
   belongs_to :category
 
   validates :title, presence: true
+  validates :description, presence: true
+ 
 
   def created_at_fmt
     created_at.to_fs(:short)
