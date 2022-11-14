@@ -75,7 +75,7 @@ const SelectCategories = ({ selectedCategoryIds, setSelectedCategoryIds }) => {
   }
   return (
     <>
-      <h3 className="mb-2 text-lg">Category</h3>
+      <h3 className="mb-2 mt-2 text-lg">Category</h3>
       <div className="space-y-1">
         {data.map((category) => {
           return (
@@ -108,11 +108,65 @@ const SelectCategories = ({ selectedCategoryIds, setSelectedCategoryIds }) => {
   );
 };
 
+const SelectLocations = ({ selectedLocations, setSelectedLocations }) => {
+  const getLocations = async () => {
+    const res = await fetch("/api/locations");
+    return res.json();
+  };
+  const { data } = useQuery("locations", getLocations);
+
+  // toggle array reducer
+  const toggleReducer = (arr, item) => {
+    if (arr.includes(item)) {
+      return arr.filter((i) => i !== item);
+    }
+    return [...arr, item];
+  };
+
+  if (!data || data?.error) {
+    return <ErrorAlert data={data} />;
+  }
+  return (
+    <>
+      <h3 className="mb-2 mt-2 text-lg">Location</h3>
+      <div className="space-y-1">
+        {data.map((location) => {
+          return (
+            <div className="relative flex">
+              <div className="flex h-5 items-center">
+                <input
+                  id={location}
+                  onClick={() =>
+                    setSelectedLocations(
+                      toggleReducer(selectedLocations, location.id)
+                    )
+                  }
+                  aria-describedby="report-location"
+                  name={location}
+                  checked={selectedLocations.includes(location.id)}
+                  type="checkbox"
+                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                />
+              </div>
+              <div className="ml-3 text-sm">
+                <label htmlFor={location} className="font-medium text-gray-700">
+                  {location.name}
+                </label>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </>
+  );
+};
+
 const Dashboard = () => {
   const [selectedStatuses, setSelectedStatuses] = useState([
     "pending_corrective_action",
   ]);
   const [selectedCategoryIds, setSelectedCategoryIds] = useState([]);
+  const [selectedLocations, setSelectedLocations] = useState([]);
 
   const getReports = async () => {
     const res = await fetch("/api/reports");
@@ -131,7 +185,13 @@ const Dashboard = () => {
         selectedCategoryIds.includes(report.category.id)
       );
     }
-
+    if (selectedLocations.length > 0) {
+      data = data.filter((report) =>
+        selectedLocations.includes(report.location.id)
+      );
+    }
+  
+  
     return (
       <Layout title="Dashboard">
         <div className="flex flex-row">
@@ -144,12 +204,13 @@ const Dashboard = () => {
               selectedCategoryIds={selectedCategoryIds}
               setSelectedCategoryIds={setSelectedCategoryIds}
             />
+            <SelectLocations
+              selectedLocations={selectedLocations}
+              setSelectedLocations={setSelectedLocations}
+            />
           </div>
           <div className="grow shadow sm:rounded-md">
-            <ul
-              role="list"
-              className="divide-y divide-gray-200"
-            >
+            <ul role="list" className="divide-y divide-gray-200">
               {data.map((report) => (
                 <li key={report.id}>
                   <a href="#" className="block hover:bg-gray-50">
