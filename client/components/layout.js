@@ -11,14 +11,10 @@ import { successToastAtom } from "../atoms/successToastAtom";
 const navigation = [
   { name: "Dashboard", href: "/", current: false },
   { name: "Submit Report", href: "/reports/new", current: false },
-  { name: "Locations", href: "/locations", current: false },
   { name: "Categories", href: "/categories", current: false },
+  { name: "Locations", href: "/locations", current: false },
 ];
-const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
-];
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");

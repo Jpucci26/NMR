@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Navbar from "../../components/navbar";
 import { useQuery, useMutation } from "react-query";
 import { useRouter } from "next/router";
 import { successToastAtom } from "../../atoms/successToastAtom";

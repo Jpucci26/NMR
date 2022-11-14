@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import {
   CalendarIcon,
   MapPinIcon,
-  UsersIcon,
+  UserIcon,
   TagIcon,
 } from "@heroicons/react/20/solid";
 import { Layout, ErrorAlert } from "/components";
@@ -51,7 +51,7 @@ const Dashboard = () => {
                             {report.category.name}
                           </p>
                           <p className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
-                            <UsersIcon
+                            <UserIcon
                               className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
                               aria-hidden="true"
                             />

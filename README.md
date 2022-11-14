@@ -6,9 +6,9 @@
 - [x] location Index
 - [x] location Show
 - [x] location Edit
-- [ ] Redirect to Login
+- [x] Redirect to Login
 - [x] set h-min 74 to fix little box in layout style 
-- [ ] create report form 
+- [x] create report form 
 - [ ] need to add stats to top of dashboard
 
 # authorization
