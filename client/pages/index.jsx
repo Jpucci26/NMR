@@ -6,8 +6,10 @@ import {
   UserIcon,
   TagIcon,
 } from "@heroicons/react/20/solid";
-import { Layout, ErrorAlert } from "/components";
+import { Layout, ErrorAlert, ReportStatus } from "/components";
 import { useState } from "react";
+
+
 
 const SelectStatus = ({ selectedStatuses, setSelectedStatuses }) => {
   // toggle array reducer
@@ -265,10 +267,11 @@ const Dashboard = () => {
                             {report.title}
                           </p>
                           <p className="text-sm">{report.description}</p>
+                          {/* <p className="text-sm">Action Taken:</p> */}
                         </div>
                         <div className="ml-2 flex flex-shrink-0">
                           <p className="inline-flex text-xs font-semibold leading-5">
-                            {StatusPill(report)}
+                            <ReportStatus report={report}/>
                           </p>
                         </div>
                       </div>
@@ -318,20 +321,4 @@ const Dashboard = () => {
 
 export default Dashboard;
 
-function StatusPill(report) {
-  let c = "";
 
-  if (report.status === "pending_final_action") {
-    c = "bg-yellow-100 rounded-full px-2 text-red-800";
-  }
-
-  if (report.status === "pending_corrective_action") {
-    c = "bg-red-200 rounded-full px-2 text-red-800";
-  }
-
-  if (report.status === "closed") {
-    c = "bg-green-100 rounded-full px-2 text-green-800";
-  }
-
-  return <span className={c}>{report.status}</span>;
-}

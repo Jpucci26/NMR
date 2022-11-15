@@ -69,6 +69,7 @@ const ListReports = ({ categoryId }) => {
 const ShowCategoryPage = () => {
   const router = useRouter();
   const categoryId = router.query.id;
+  // console.log({ categoryId });
 
   const getCategory = async () => {
     const res = await fetch(`/api/categories/${categoryId}`);

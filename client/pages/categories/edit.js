@@ -23,7 +23,7 @@ const SelectUserField = ({ setUserId, userId }) => {
     queryKey: `/users`,
     queryFn: getUsers,
   });
-  console.log({ data });
+  // console.log({ data });
 
   if (!isSuccess || data?.error) {
     return (

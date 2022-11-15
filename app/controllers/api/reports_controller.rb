@@ -26,7 +26,48 @@ module Api
 
     # PATCH/PUT /reports/1
     def update
+      @report = Report.find(params[:id])
       if @report.update(report_params)
+        render json: @report
+      else
+        render json: @report.errors, status: :unprocessable_entity
+      end
+    end
+
+    def clarify
+      task_params = params.require(:report).permit(:title, :description, :location_id, :category_id)
+      @report = Report.find(params[:id])
+      if @report.update(task_params)
+        render json: @report
+      else
+        render json: { error: 'Clarify Report Error', errors: @report.errors }, status: :unprocessable_entity
+      end
+    end
+
+    def revert
+      task_params = params.require(:report).permit(:status)
+      @report = Report.find(params[:id])
+      if @report.update(task_params)
+        render json: @report
+      else
+        render json: @report.errors, status: :unprocessable_entity
+      end
+    end
+
+    def close
+      task_params = params.require(:report).permit(:final_action)
+      @report = Report.find(params[:id])
+      if @report.update(task_params)
+        render json: @report
+      else
+        render json: @report.errors, status: :unprocessable_entity
+      end
+    end
+
+    def record_corrective_action
+      task_params = params.require(:report).permit(:corrective_action)
+      @report = Report.find(params[:id])
+      if @report.update(task_params)
         render json: @report
       else
         render json: @report.errors, status: :unprocessable_entity
@@ -47,7 +88,7 @@ module Api
 
     # Only allow a list of trusted parameters through.
     def report_params
-      params.require(:report).permit(:title, :description, :location_id, :category_id)
+      params.require(:report).permit(:title, :description, :location_id, :category_id, :status)
     end
   end
 end

@@ -8,5 +8,6 @@ Rails.application.routes.draw do
     delete '/logout', to: 'sessions#delete'
     get '/current_user', to: 'users#show_current_user'
     get '/categories/:id/reports', to: 'categories#reports'
+    post '/reports/:id/clarify', to: 'reports#clarify'
   end
 end
