@@ -95,7 +95,7 @@ const ShowReportsPage = () => {
           <>
             <Button
               label="Close Report"
-              href={`/reports/close_report?id=${reportId}`}
+              href={`/reports/close?id=${reportId}`}
             />
             <Button label="Revert" href={`/reports/revert?id=${reportId}`} />
           </>

@@ -8,3 +8,5 @@ export { Form } from "./Form";
 export { SuccessToast } from "./successToast";
 export { ReportStatus } from "./ReportStatus";
 export { ReportDetails } from "./ReportDetails";
+export { ConfettiSurprise } from "./ConfettiSurprise";
+

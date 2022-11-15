@@ -95,10 +95,33 @@ module Api
     def close
       task_params = params.require(:report).permit(:final_action)
       @report = Report.find(params[:id])
-      if @report.update(task_params)
+      @report.final_action = task_params[:final_action]
+      body = "#{@current_user.username} closed report."
+      @report.status = 'closed'
+      if @report.final_action_changed?
+        if @report.final_action_was.nil?
+          body += " Set final action to #{@report.final_action.inspect}."
+        else
+          body += " Changed final action from #{@report.final_action_was.inspect} to #{@report.final_action.inspect}."
+        end
+      end
+      if @report.status_changed?
+        body += " Changed status from #{@report.status_was.inspect} to #{@report.status.inspect}."
+      end
+      if (task_params[:final_action].blank?)
+        render json: { error: 'Close Report Error', errors: { 'Final Action': "Can't be blank" }
+        }, status: :unprocessable_entity
+        return 
+      end
+      
+      if @report.save
+        n = Note.new(user_id: @current_user.id, report_id: @report.id)
+        n.task = 'Closed Report'
+        n.body = body
+        n.save!
         render json: @report
       else
-        render json: @report.errors, status: :unprocessable_entity
+        render json: { error: 'Error', errors: @report.errors }, status: :unprocessable_entity
       end
     end
 

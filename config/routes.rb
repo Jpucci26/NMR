@@ -13,5 +13,6 @@ Rails.application.routes.draw do
     get '/reports/:id/notes', to: 'reports#notes'
     post '/reports/:id/record_corrective_action', to: 'reports#record_corrective_action'
     post '/reports/:id/revert', to: 'reports#revert'
+    post '/reports/:id/close', to: 'reports#close'
   end
 end

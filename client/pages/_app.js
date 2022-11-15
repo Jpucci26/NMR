@@ -6,7 +6,7 @@ import { atom, useAtom } from "jotai";
 import { useRouter } from "next/router";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { SuccessToast } from "/components";
+import { SuccessToast, ConfettiSurprise } from "/components";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +39,7 @@ export default function App({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
       <SuccessToast />
+      <ConfettiSurprise />
       <Component {...pageProps} />
       <ReactQueryDevtools />
     </QueryClientProvider>
