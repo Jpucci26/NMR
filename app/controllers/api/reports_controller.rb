@@ -75,12 +75,20 @@ module Api
     end
 
     def revert
-      task_params = params.require(:report).permit(:status)
       @report = Report.find(params[:id])
-      if @report.update(task_params)
+      body = "#{@current_user.username} reverted report."
+      @report.status = 'pending_corrective_action'
+      if @report.status_changed?
+        body += " Reverted status from #{@report.status_was.inspect} to #{@report.status.inspect}."
+      end
+      if @report.save
+        n = Note.new(user_id: @current_user.id, report_id: @report.id)
+        n.task = 'Reverted'
+        n.body = body
+        n.save!
         render json: @report
       else
-        render json: @report.errors, status: :unprocessable_entity
+        render json: { error: 'Revert Report Error', errors: @report.errors }, status: :unprocessable_entity
       end
     end
 
@@ -123,7 +131,7 @@ module Api
         n.save!
         render json: @report
       else
-        render json: { error: 'Clarify Report Error', errors: @report.errors }, status: :unprocessable_entity
+        render json: { error: 'Error', errors: @report.errors }, status: :unprocessable_entity
       end
     end
 

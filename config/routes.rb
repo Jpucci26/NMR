@@ -12,5 +12,6 @@ Rails.application.routes.draw do
     post '/reports/:id/clarify', to: 'reports#clarify'
     get '/reports/:id/notes', to: 'reports#notes'
     post '/reports/:id/record_corrective_action', to: 'reports#record_corrective_action'
+    post '/reports/:id/revert', to: 'reports#revert'
   end
 end

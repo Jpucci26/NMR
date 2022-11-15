@@ -1,15 +1,12 @@
 import { useRouter } from "next/router";
 import { useQuery, useMutation } from "react-query";
-import { useState, useEffect } from "react";
 import { successToastAtom } from "../../atoms/successToastAtom";
 import { useAtom } from "jotai";
 import {
   Layout,
   SectionHeader,
   Button,
-  Field,
   SectionBody,
-  Form,
   ErrorAlert,
   ReportDetails
 } from "/components";
@@ -20,12 +17,11 @@ import {
 
 
 
-const RCAPage = () => {
+const RevertPage = () => {
   const [successToast, setSuccessToast] = useAtom(successToastAtom);
   const router = useRouter();
   const reportId = router.query.id;
 
-  const [correctiveAction, setCorrectiveAction] = useState("");
   // get report details
 
   const getReport = async () => {
@@ -37,22 +33,13 @@ const RCAPage = () => {
     queryKey: `reports/${reportId}`,
     queryFn: getReport,
     enabled: reportId !== undefined,
-    onSuccess: (d) => {
-      setCorrectiveAction(d.corrective_action);
-    },
   });
 
   // update report mutation
 
-  const correctReport = async () => {
-    const formData = {
-      report: {
-        corrective_action: correctiveAction,
-      },
-    };
-    const res = await fetch(`/api/reports/${reportId}/record_corrective_action`, {
+  const revertReport = async () => {
+    const res = await fetch(`/api/reports/${reportId}/revert`, {
       method: "POST",
-      body: JSON.stringify(formData),
       headers: {
         "Content-Type": "application/json",
       },
@@ -61,11 +48,11 @@ const RCAPage = () => {
   };
 
   const { mutate, data, isLoading } = useMutation({
-    mutationKey: `Record_corrective_action ${reportId}`,
-    mutationFn: correctReport,
+    mutationKey: `Revert_report ${reportId}`,
+    mutationFn: revertReport,
     onSuccess: (d) => {
       if (!d.error) {
-        setSuccessToast("Corrective Action Recorded successfully");
+        setSuccessToast("Report Reverted successfully");
         router.push(`/reports/show?id=${reportId}`);
       }
     },
@@ -77,11 +64,11 @@ const RCAPage = () => {
 
   return (
     <Layout title="Reports">
-      <SectionHeader title="Record Corrective Action">
+      <SectionHeader title="Revert">
         
-      <Button label="Cancel" href={`/reports/show?id=${reportId}`} />
+        <Button label="Cancel" href={`/reports/show?id=${reportId}`} />
         <Button
-          label="Record Corrective Action"
+          label="Revert"
           disabled={isLoading}
           onClick={mutate}
         />
@@ -89,22 +76,9 @@ const RCAPage = () => {
       <SectionBody>
         <ErrorAlert data={data} />
         <ReportDetails report={report} />
-        <Form onSubmit={mutate}>
-          <Field name="Corrective Action">
-            <textarea
-              id="corrective_action"
-              name="corrective_action"
-              type="text"
-              value={correctiveAction}
-              onChange={(e) => setCorrectiveAction(e.target.value)}
-              className="twInput"
-              disabled={isLoading}
-            />
-          </Field>
-        </Form>
       </SectionBody>
     </Layout>
   );
 };
 
-export default RCAPage;
+export default RevertPage;
