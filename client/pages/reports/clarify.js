@@ -122,8 +122,8 @@ const ClarifyReportPage = () => {
     onSuccess: (d) => {
       setTitle(d.title);
       setDescription(d.description);
-      setCategoryId(d.category_id);
-      setLocationId(d.location_id);
+      setCategoryId(d.category.id);
+      setLocationId(d.location.id);
     },
   });
 

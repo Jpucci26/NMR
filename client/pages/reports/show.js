@@ -2,9 +2,61 @@ import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { Layout, SectionHeader, Button, ReportStatus, SectionBody } from "/components";
 
+const UserDetail = ({ user, header }) => {
+  if (!user) {
+    return <></>;
+  } else {
+    return (
+      <>
+        <h3 className="mt-3 mb-3 text-lg">{header}</h3>
+        <div className="text-gray-700 text-sm">
+          <p>{user.username}</p>
+          <p>{user.title}</p>
+          <p>{user.email}</p>
+          <p>{user.phone}</p>
+        </div>
+      </>
+    );
+  }
+};
+
+const NoteList = ({ report }) => {
+
+  const getNotes = async () => {
+    const res = await fetch(`/api/reports/${report.id}/notes`);
+    return res.json();
+  };
+
+  const { data } = useQuery({
+    queryKey: `reports/${report.id}/notes`,
+    queryFn: getNotes,
+    enabled: report.id !== undefined,
+  });
+
+  if (!data || data.error) return <>surpirse</>;
+
+  return(
+    <div>
+      <h3 className="mt-3 mb-3 text-lg">Notes</h3>
+      <div className="text-gray-700 text-sm">
+        {data.map((note) => (
+          <div key={note.id}>
+            <p>{note.task}</p>
+            <p>{note.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+
+
+
 const ReportDetails = ({ report }) => {
   return (
-    <div className="mt-2 mb-2 bg-gray-50 text-gray-800 text-sm p-2">
+    <div className="mt-2 mb-2 bg-gray-50 p-2">
+      <h3 className="mt-3 mb-3 text-lg ">Report Details</h3>
       <p>Title: {report.title}</p>
       <p>Description: {report.description}</p>
       <p>Location: {report.location.name}</p>
@@ -46,6 +98,7 @@ const ShowReportsPage = () => {
       <SectionHeader title={data.title}>
         {data.status == "pending_corrective_action" ? (
           <>
+          <Button label="Back" href="/" />
             <Button
               label="Record Corrective Action"
               href={`/reports/recordcorrectiveaction?id=${reportId}`}
@@ -62,11 +115,18 @@ const ShowReportsPage = () => {
             <Button label="Revert" href={`/reports/revert?id=${reportId}`} />
           </>
         ) : null}
-        {/* <Button label="Delete" href={`/reports/delete?id=${reportId}`} /> */}
-        {/* <Button label="Delete" href="/" /> */}
       </SectionHeader>
       <SectionBody>
-        <ReportDetails report={data} />
+        <div className="flex">
+          <div className="grow mr-4">
+          <ReportDetails report={data} />
+          <NoteList report={data} />
+          </div>
+          <div className="w-64">
+            <UserDetail user={data.user} header="Submitted By" />
+            <UserDetail user={data.category_lead} header="Category Lead" />
+          </div>
+        </div>
       </SectionBody>
     </Layout>
   );

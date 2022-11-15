@@ -24,6 +24,14 @@ module Api
       end
     end
 
+    def notes
+      @report = Report.find(params[:id])
+      @notes = @report.notes
+      render json: @notes
+    end
+  
+
+
     # PATCH/PUT /reports/1
     def update
       @report = Report.find(params[:id])
@@ -37,7 +45,29 @@ module Api
     def clarify
       task_params = params.require(:report).permit(:title, :description, :location_id, :category_id)
       @report = Report.find(params[:id])
-      if @report.update(task_params)
+      @report.title = task_params[:title]
+      @report.description = task_params[:description]
+      @report.location = Location.find(task_params[:location_id])
+      @report.category = Category.find(task_params[:category_id])
+      body = "#{@current_user.username} Clarified Report."
+      if @report.title_changed?
+        body += " Changed title from #{@report.title_was.inspect} to #{@report.title.inspect}."
+      end
+      if @report.description_changed?
+        body += " Changed description from #{@report.description_was.inspect} to #{@report.description.inspect}."
+      end
+      if @report.location_id_changed?
+        body += " Changed location from #{Location.find(@report.location_id_was).name.inspect} to #{Location.find(@report.location_id).name.inspect}."
+      end
+      if @report.category_id_changed?
+        body += " Changed category from #{Category.find(@report.category_id_was).name.inspect} to #{Category.find(@report.category_id).name.inspect}."
+      end
+      
+      if @report.save
+        n = Note.new(user_id: @current_user.id, report_id: @report.id)
+        n.task = 'Clarify'
+        n.body = body
+        n.save!
         render json: @report
       else
         render json: { error: 'Clarify Report Error', errors: @report.errors }, status: :unprocessable_entity
