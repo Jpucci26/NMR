@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
-import { Layout, SectionHeader, Button, ReportStatus, SectionBody } from "/components";
+import { Layout, SectionHeader, Button, SectionBody, ReportDetails } from "/components";
 
 const UserDetail = ({ user, header }) => {
   if (!user) {
@@ -53,22 +53,7 @@ const NoteList = ({ report }) => {
 
 
 
-const ReportDetails = ({ report }) => {
-  return (
-    <div className="mt-2 mb-2 bg-gray-50 p-2">
-      <h3 className="mt-3 mb-3 text-lg ">Report Details</h3>
-      <p>Title: {report.title}</p>
-      <p>Description: {report.description}</p>
-      <p>Location: {report.location.name}</p>
-      <p>Category: {report.category.name}</p>
-      <p>Corrective Action: {report.corrective_action}</p>
-      <p>Final Action: {report.final_action}</p>
-      <p>Reported At: {report.created_at_fmt}</p>
-      <p>Reported By: {report.user.username}</p>
-      <p>Status: <ReportStatus report={report}/></p>
-    </div>
-  );
-};
+
 
 const ShowReportsPage = () => {
   const router = useRouter();
@@ -96,12 +81,12 @@ const ShowReportsPage = () => {
   return (
     <Layout title="Reports">
       <SectionHeader title={data.title}>
+      <Button label="Back" href="/" />
         {data.status == "pending_corrective_action" ? (
           <>
-          <Button label="Back" href="/" />
             <Button
               label="Record Corrective Action"
-              href={`/reports/recordcorrectiveaction?id=${reportId}`}
+              href={`/reports/record_corrective_action?id=${reportId}`}
             />
             <Button label="Clarify" href={`/reports/clarify?id=${reportId}`} />
           </>
@@ -110,7 +95,7 @@ const ShowReportsPage = () => {
           <>
             <Button
               label="Close Report"
-              href={`/reports/closereport?id=${reportId}`}
+              href={`/reports/close_report?id=${reportId}`}
             />
             <Button label="Revert" href={`/reports/revert?id=${reportId}`} />
           </>

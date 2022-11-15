@@ -99,15 +99,12 @@ const SelectLocationField = ({ setLocationId, locationId  }) => {
 
 
 
-const ClarifyReportPage = () => {
+const RCAPage = () => {
   const [successToast, setSuccessToast] = useAtom(successToastAtom);
   const router = useRouter();
   const reportId = router.query.id;
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [categoryId, setCategoryId] = useState("")
-  const [locationId, setLocationId] = useState("")
+  const [correctiveAction, setCorrectiveAction] = useState("");
   // get report details
 
   const getReport = async () => {
@@ -120,25 +117,19 @@ const ClarifyReportPage = () => {
     queryFn: getReport,
     enabled: reportId !== undefined,
     onSuccess: (d) => {
-      setTitle(d.title);
-      setDescription(d.description);
-      setCategoryId(d.category.id);
-      setLocationId(d.location.id);
+      setCorrectiveAction(d.corrective_action);
     },
   });
 
   // update report mutation
 
-  const clarifyReport = async () => {
+  const correctReport = async () => {
     const formData = {
       report: {
-        title: title,
-        description: description,
-        category_id: categoryId,
-        location_id: locationId,
+        corrective_action: correctiveAction,
       },
     };
-    const res = await fetch(`/api/reports/${reportId}/clarify`, {
+    const res = await fetch(`/api/reports/${reportId}/record_corrective_action`, {
       method: "POST",
       body: JSON.stringify(formData),
       headers: {
@@ -149,26 +140,27 @@ const ClarifyReportPage = () => {
   };
 
   const { mutate, data, isLoading } = useMutation({
-    mutationKey: `Clarify Report ${reportId}`,
-    mutationFn: clarifyReport,
+    mutationKey: `Record_corrective_action ${reportId}`,
+    mutationFn: correctReport,
     onSuccess: (d) => {
       if (!d.error) {
-        setSuccessToast("Report Clarified successfully");
+        setSuccessToast("Corrective Action Recorded successfully");
         router.push(`/reports/show?id=${reportId}`);
       }
     },
   });
 
   if (!isSuccess) {
-    return <Layout title="Reports">{title}</Layout>;
+    return <Layout title="Reports"></Layout>;
   }
 
   return (
     <Layout title="Reports">
-      <SectionHeader title="Clarify">
-        <Button label="Cancel" href={`/reports/show?id=${reportId}`} />
+      <SectionHeader title="Record Corrective Action">
+        
+        <Button label="Cancel" href="/" />
         <Button
-          label="Clarify"
+          label="Record Corrective Action"
           disabled={isLoading}
           onClick={mutate}
         />
@@ -177,32 +169,21 @@ const ClarifyReportPage = () => {
         <ErrorAlert data={data} />
         <ReportDetails report={report} />
         <Form onSubmit={mutate}>
-          <Field name="Title">
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="twInput"
-              disabled={isLoading}
-            />
-          </Field>
-          <Field name="Description">
+          <Field name="Corrective Action">
             <textarea
-              id="description"
-              name="description"
+              id="corrective_action"
+              name="corrective_action"
               type="text"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              value={correctiveAction}
+              onChange={(e) => setCorrectiveAction(e.target.value)}
               className="twInput"
               disabled={isLoading}
             />
           </Field>
-          <SelectLocationField setLocationId={setLocationId} locationId={locationId} />
-          <SelectCategoryField setCategoryId={setCategoryId} categoryId={categoryId} />
         </Form>
       </SectionBody>
     </Layout>
   );
 };
 
-export default ClarifyReportPage;
+export default RCAPage;

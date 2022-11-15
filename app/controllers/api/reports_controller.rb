@@ -97,10 +97,33 @@ module Api
     def record_corrective_action
       task_params = params.require(:report).permit(:corrective_action)
       @report = Report.find(params[:id])
-      if @report.update(task_params)
+      @report.corrective_action = task_params[:corrective_action]
+      body = "#{@current_user.username} recorded corrective action."
+      @report.status = 'pending_final_action'
+      if @report.corrective_action_changed?
+        if @report.corrective_action_was.nil?
+          body += " Set corrective action to #{@report.corrective_action.inspect}."
+        else
+          body += " Changed corrective action from #{@report.corrective_action_was.inspect} to #{@report.corrective_action.inspect}."
+        end
+      end
+      if @report.status_changed?
+        body += " Changed status from #{@report.status_was.inspect} to #{@report.status.inspect}."
+      end
+      if (task_params[:corrective_action].blank?)
+        render json: { error: 'Record Corrective Action Error', errors: { 'Corrective Action': "Can't be blank" }
+        }, status: :unprocessable_entity
+        return 
+      end
+      
+      if @report.save
+        n = Note.new(user_id: @current_user.id, report_id: @report.id)
+        n.task = 'Recorded Corrective Action'
+        n.body = body
+        n.save!
         render json: @report
       else
-        render json: @report.errors, status: :unprocessable_entity
+        render json: { error: 'Clarify Report Error', errors: @report.errors }, status: :unprocessable_entity
       end
     end
 

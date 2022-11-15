@@ -7,3 +7,4 @@ export { SectionBody } from "./SectionBody";
 export { Form } from "./Form";
 export { SuccessToast } from "./successToast";
 export { ReportStatus } from "./ReportStatus";
+export { ReportDetails } from "./ReportDetails";

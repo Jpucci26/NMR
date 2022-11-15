@@ -11,5 +11,6 @@ Rails.application.routes.draw do
     get '/categories/:id/reports', to: 'categories#reports'
     post '/reports/:id/clarify', to: 'reports#clarify'
     get '/reports/:id/notes', to: 'reports#notes'
+    post '/reports/:id/record_corrective_action', to: 'reports#record_corrective_action'
   end
 end
