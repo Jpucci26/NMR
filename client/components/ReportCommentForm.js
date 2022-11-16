@@ -29,20 +29,10 @@ export const ReportCommentForm = ({ report }) => {
     onSuccess: () => {
       queryClient.invalidateQueries();
       setComment("");
-      setIsDisabled(false)
+      setIsDisabled(false);
     },
   });
 
-  // const { mutate, data, isLoading } = useMutation({
-  //     mutationKey: "Update location",
-  //     mutationFn: updateLocation,
-  //     onSuccess: (d) => {
-  //       if (!d.error) {
-  //         setSuccessToast("Location updated successfully");
-  //         router.push("/locations");
-  //       }
-  //     },
-  //   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -60,7 +50,12 @@ export const ReportCommentForm = ({ report }) => {
         />
       </div>
       <div className="min-w-0 flex-1">
-        <form action="#" className="relative" onSubmit={handleSubmit} disabled={isDisabled}>
+        <form
+          action="#"
+          className="relative"
+          onSubmit={handleSubmit}
+          disabled={isDisabled}
+        >
           <div className="overflow-hidden rounded-lg border border-gray-300 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
             <label htmlFor="comment" className="sr-only">
               Add your comment
@@ -73,7 +68,6 @@ export const ReportCommentForm = ({ report }) => {
               onChange={(e) => setComment(e.target.value)}
               className="block w-full resize-none border-0 py-3 focus:ring-0 sm:text-sm"
               placeholder="Add your comment..."
-              defaultValue={""}
               disabled={isDisabled}
             />
 

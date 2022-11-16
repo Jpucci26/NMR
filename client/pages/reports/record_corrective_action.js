@@ -11,14 +11,8 @@ import {
   SectionBody,
   Form,
   ErrorAlert,
-  ReportDetails
+  ReportDetails,
 } from "/components";
-
-
- 
-
-
-
 
 const RCAPage = () => {
   const [successToast, setSuccessToast] = useAtom(successToastAtom);
@@ -33,12 +27,12 @@ const RCAPage = () => {
     return res.json();
   };
 
-  const { data:report, isSuccess } = useQuery({
+  const { data: report, isSuccess } = useQuery({
     queryKey: `reports/${reportId}`,
     queryFn: getReport,
     enabled: reportId !== undefined,
     onSuccess: (d) => {
-      setCorrectiveAction(d.corrective_action);
+      setCorrectiveAction(d.corrective_action || "");
     },
   });
 
@@ -50,13 +44,16 @@ const RCAPage = () => {
         corrective_action: correctiveAction,
       },
     };
-    const res = await fetch(`/api/reports/${reportId}/record_corrective_action`, {
-      method: "POST",
-      body: JSON.stringify(formData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      `/api/reports/${reportId}/record_corrective_action`,
+      {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     return res.json();
   };
 
@@ -78,8 +75,7 @@ const RCAPage = () => {
   return (
     <Layout title="Reports">
       <SectionHeader title="Record Corrective Action">
-        
-      <Button label="Cancel" href={`/reports/show?id=${reportId}`} />
+        <Button label="Cancel" href={`/reports/show?id=${reportId}`} />
         <Button
           label="Record Corrective Action"
           disabled={isLoading}

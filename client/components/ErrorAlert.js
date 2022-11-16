@@ -14,7 +14,7 @@ export const ErrorAlert = ({ data }) => {
               <ul role="list" className="list-disc space-y-1 pl-5">
                 {Object.keys(data.errors).map((key) => {
                   return (
-                    <li>
+                    <li key={key}>
                       {key}: {data.errors[key]}
                     </li>
                   );

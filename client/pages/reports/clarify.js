@@ -47,7 +47,7 @@ const SelectCategoryField = ({ setCategoryId, categoryId  }) => {
             // disabled={isLoading}
           >
             {data.map((category) => (
-              <option value={category.id}>{category.name}</option>
+              <option key={category.id} value={category.id}>{category.name}</option>
             ))}
           </select>
         </Field>
@@ -87,7 +87,7 @@ const SelectLocationField = ({ setLocationId, locationId  }) => {
             // disabled={isLoading}
           >
             {data.map((location) => (
-              <option value={location.id}>{location.name}</option>
+              <option key={location.id} value={location.id}>{location.name}</option>
             ))}
           </select>
         </Field>

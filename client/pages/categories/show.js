@@ -60,6 +60,7 @@ const ListReports = ({ categoryId }) => {
         <div className="text-gray-700 text-sm">
           {data.map((report) => (
             <Link
+              key={report.id}
               href={`/reports/show?id=${report.id}`}
               className="block p-1 underline text-indigo-600"
             >

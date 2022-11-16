@@ -34,7 +34,7 @@ const ClosePage = () => {
     queryFn: getReport,
     enabled: reportId !== undefined,
     onSuccess: (d) => {
-      setFinalAction(d.final_action);
+      setFinalAction(d.final_action || "");
     },
   });
 

@@ -23,7 +23,6 @@ const SelectUserField = ({ setUserId, userId }) => {
     queryKey: `/users`,
     queryFn: getUsers,
   });
-  // console.log({ data });
 
   if (!isSuccess || data?.error) {
     return (
@@ -45,7 +44,7 @@ const SelectUserField = ({ setUserId, userId }) => {
             // disabled={isLoading}
           >
             {data.map((user) => (
-              <option value={user.id}>{user.username}</option>
+              <option key={user.id} value={user.id}>{user.username}</option>
             ))}
           </select>
         </Field>

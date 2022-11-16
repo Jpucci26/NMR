@@ -9,8 +9,6 @@ import {
 import { Layout, ErrorAlert, ReportStatus } from "/components";
 import { useState } from "react";
 
-
-
 const SelectStatus = ({ selectedStatuses, setSelectedStatuses }) => {
   // toggle array reducer
   const toggleReducer = (arr, item) => {
@@ -27,11 +25,11 @@ const SelectStatus = ({ selectedStatuses, setSelectedStatuses }) => {
         {["pending_corrective_action", "pending_final_action", "closed"].map(
           (status) => {
             return (
-              <div className="relative flex">
+              <div key={status} className="relative flex">
                 <div className="flex h-5 items-center">
                   <input
                     id={status}
-                    onClick={() =>
+                    onChange={() =>
                       setSelectedStatuses(
                         toggleReducer(selectedStatuses, status)
                       )
@@ -81,11 +79,11 @@ const SelectCategories = ({ selectedCategoryIds, setSelectedCategoryIds }) => {
       <div className="space-y-1">
         {data.map((category) => {
           return (
-            <div className="relative flex">
+            <div key={category.id} className="relative flex">
               <div className="flex h-5 items-center">
                 <input
                   id={category}
-                  onClick={() =>
+                  onChange={() =>
                     setSelectedCategoryIds(
                       toggleReducer(selectedCategoryIds, category.id)
                     )
@@ -134,11 +132,11 @@ const SelectLocations = ({ selectedLocations, setSelectedLocations }) => {
       <div className="space-y-1">
         {data.map((location) => {
           return (
-            <div className="relative flex">
+            <div key={location.id} className="relative flex">
               <div className="flex h-5 items-center">
                 <input
                   id={location}
-                  onClick={() =>
+                  onChange={() =>
                     setSelectedLocations(
                       toggleReducer(selectedLocations, location.id)
                     )
@@ -170,11 +168,11 @@ const SelectOrder = ({ selectedOrder, setSelectedOrder }) => {
       <div className="space-y-1">
         {["newest", "oldest"].map((order) => {
           return (
-            <div className="relative flex">
+            <div key={order} className="relative flex">
               <div className="flex h-5 items-center">
                 <input
                   id={order}
-                  onClick={() => setSelectedOrder(order)}
+                  onChange={() => setSelectedOrder(order)}
                   aria-describedby="report-order"
                   name={order}
                   checked={selectedOrder === order}
@@ -271,7 +269,7 @@ const Dashboard = () => {
                         </div>
                         <div className="ml-2 flex flex-shrink-0">
                           <p className="inline-flex text-xs font-semibold leading-5">
-                            <ReportStatus report={report}/>
+                            <ReportStatus report={report} />
                           </p>
                         </div>
                       </div>
@@ -320,5 +318,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-

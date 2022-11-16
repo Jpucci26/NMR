@@ -1,12 +1,13 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useQuery } from "react-query";
-import { Layout, SectionHeader, Button, SectionBody, ErrorAlert } from "/components";
-
-
-
-
-
+import {
+  Layout,
+  SectionHeader,
+  Button,
+  SectionBody,
+  ErrorAlert,
+} from "/components";
 
 const ShowLocationsPage = () => {
   const router = useRouter();
@@ -21,7 +22,7 @@ const ShowLocationsPage = () => {
       `/locations/${locationId}/reports`,
       getReports
     );
-  
+
     if (!isSuccess || data?.error) {
       return (
         <>
@@ -35,6 +36,7 @@ const ShowLocationsPage = () => {
           <div className="text-gray-700 text-sm">
             {data.map((report) => (
               <Link
+                key={report.id}
                 href={`/reports/show?id=${report.id}`}
                 className="block p-1 underline text-indigo-600"
               >

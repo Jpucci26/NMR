@@ -24,7 +24,6 @@ const SelectLocationField = ({ locationId, setLocationId }) => {
     queryKey: "LocationsField",
     queryFn: getLocations,
   });
-  // console.log({Location_data: data})
 
   if (!isSuccess || !data) {
     return (
@@ -46,7 +45,9 @@ const SelectLocationField = ({ locationId, setLocationId }) => {
           >
             <option value="">-- Select a Location --</option>
             {data.map((location) => (
-              <option value={location.id}>{location.name}</option>
+              <option key={location.id} value={location.id}>
+                {location.name}
+              </option>
             ))}
           </select>
         </Field>
@@ -87,7 +88,9 @@ const SelectCategoryField = ({ categoryId, setCategoryId }) => {
           >
             <option value="">-- Select a Category --</option>
             {data.map((category) => (
-              <option value={category.id}>{category.name}</option>
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
             ))}
           </select>
         </Field>
@@ -95,47 +98,6 @@ const SelectCategoryField = ({ categoryId, setCategoryId }) => {
     );
   }
 };
-
-// const SelectUserField = ({ userId, setUserId }) => {
-//   const getUsers = async () => {
-//     const res = await fetch("/api/users");
-//     return res.json();
-//   };
-
-//   const { data, isSuccess } = useQuery({
-//     queryKey: "UsersField",
-//     queryFn: getUsers,
-//   });
-//   // console.log({User_data: data})
-
-//   if (!isSuccess || data?.error) {
-//     return (
-//       <>
-//         <ErrorAlert data={data} />
-//       </>
-//     );
-//   } else {
-//     return (
-//       <>
-//         <Field name="Submitted By">
-//           <select
-//             id="Users"
-//             name="Users"
-//             type="text"
-//             value={userId}
-//             onChange={(e) => setUserId(e.target.value)}
-//             className="twInput"
-//           >
-//             <option value="">-- Select Name --</option>
-//             {data.map((user) => (
-//               <option value={user.id}>{user.username}</option>
-//             ))}
-//           </select>
-//         </Field>
-//       </>
-//     );
-//   }
-// };
 
 const NewReportPage = () => {
   const router = useRouter();
@@ -181,7 +143,7 @@ const NewReportPage = () => {
     <Layout title="Submit Report">
       <SectionHeader title="Please Explain Your Near Miss">
         <Button label="Cancel" href="/" />
-        <Button label="Save" onClick={mutate} disable={isLoading} />
+        <Button label="Save" onClick={mutate} disable={isLoading.toString()} />
       </SectionHeader>
       <SectionBody>
         <ErrorAlert data={data} />
@@ -193,7 +155,7 @@ const NewReportPage = () => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               type="text"
-              disable={isLoading}
+              disable={isLoading.toString()}
               className="twInput"
             />
           </Field>
@@ -204,7 +166,7 @@ const NewReportPage = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               type="text"
-              disable={isLoading}
+              disable={isLoading.toString()}
               className="twInput"
             />
           </Field>
