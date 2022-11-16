@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { useQuery } from "react-query";
 import {
   Layout,
@@ -58,7 +59,12 @@ const ListReports = ({ categoryId }) => {
         <h3 className="mt-3 mb-3 text-md">Reports</h3>
         <div className="text-gray-700 text-sm">
           {data.map((report) => (
-            <p>{report.title}</p>
+            <Link
+              href={`/reports/show?id=${report.id}`}
+              className="block p-1 underline text-indigo-600"
+            >
+              <p>{report.title}</p>
+            </Link>
           ))}
         </div>
       </>

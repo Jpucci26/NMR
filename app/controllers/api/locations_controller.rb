@@ -1,6 +1,6 @@
 module Api
   class LocationsController < ApplicationController
-    before_action :set_location, only: %i[show update destroy]
+    before_action :set_location, only: %i[show update destroy reports]
 
     # GET /locations
     def index
@@ -12,6 +12,11 @@ module Api
     # GET /locations/1
     def show
       render json: @location
+    end
+
+    def reports
+      @reports = @location.reports
+      render json: @reports
     end
 
     # POST /locations
