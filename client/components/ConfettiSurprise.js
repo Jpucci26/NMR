@@ -39,8 +39,8 @@ export const ConfettiSurprise = () => {
       <Confetti
         width={width}
         height={height}
-        numberOfPieces={500}
-        recycle={true}
+        numberOfPieces={1500}
+        recycle={false}
       />
     );
   } else {

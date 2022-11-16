@@ -14,5 +14,6 @@ Rails.application.routes.draw do
     post '/reports/:id/record_corrective_action', to: 'reports#record_corrective_action'
     post '/reports/:id/revert', to: 'reports#revert'
     post '/reports/:id/close', to: 'reports#close'
+    post '/reports/:id/comment', to: 'reports#comment'
   end
 end

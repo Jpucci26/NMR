@@ -13,6 +13,20 @@ module Api
       render json: @report
     end
 
+    def comment
+      # filtering and permitting predermined data
+      task_params = params.permit(:comment)
+      @report = Report.find(params[:id])
+      @note = Note.new(user_id: @current_user.id, report_id: @report.id)
+      @note.task = 'Comment'
+      @note.body = task_params[:comment]
+      if @note.save
+        render json: @note
+      else
+        render json: { error: 'Comment Error', errors: @note.errors }, status: :unprocessable_entity
+      end
+    end
+
     # POST /reports
     def create
       @report = Report.new(report_params)
@@ -29,8 +43,6 @@ module Api
       @notes = @report.notes
       render json: @notes
     end
-  
-
 
     # PATCH/PUT /reports/1
     def update
@@ -50,9 +62,7 @@ module Api
       @report.location = Location.find(task_params[:location_id])
       @report.category = Category.find(task_params[:category_id])
       body = "#{@current_user.username} Clarified Report."
-      if @report.title_changed?
-        body += " Changed title from #{@report.title_was.inspect} to #{@report.title.inspect}."
-      end
+      body += " Changed title from #{@report.title_was.inspect} to #{@report.title.inspect}." if @report.title_changed?
       if @report.description_changed?
         body += " Changed description from #{@report.description_was.inspect} to #{@report.description.inspect}."
       end
@@ -62,7 +72,7 @@ module Api
       if @report.category_id_changed?
         body += " Changed category from #{Category.find(@report.category_id_was).name.inspect} to #{Category.find(@report.category_id).name.inspect}."
       end
-      
+
       if @report.save
         n = Note.new(user_id: @current_user.id, report_id: @report.id)
         n.task = 'Clarify'
@@ -99,21 +109,21 @@ module Api
       body = "#{@current_user.username} closed report."
       @report.status = 'closed'
       if @report.final_action_changed?
-        if @report.final_action_was.nil?
-          body += " Set final action to #{@report.final_action.inspect}."
-        else
-          body += " Changed final action from #{@report.final_action_was.inspect} to #{@report.final_action.inspect}."
-        end
+        body += if @report.final_action_was.nil?
+                  " Set final action to #{@report.final_action.inspect}."
+                else
+                  " Changed final action from #{@report.final_action_was.inspect} to #{@report.final_action.inspect}."
+                end
       end
       if @report.status_changed?
         body += " Changed status from #{@report.status_was.inspect} to #{@report.status.inspect}."
       end
-      if (task_params[:final_action].blank?)
-        render json: { error: 'Close Report Error', errors: { 'Final Action': "Can't be blank" }
-        }, status: :unprocessable_entity
-        return 
+      if task_params[:final_action].blank?
+        render json: { error: 'Close Report Error', errors: { 'Final Action': "Can't be blank" } },
+               status: :unprocessable_entity
+        return
       end
-      
+
       if @report.save
         n = Note.new(user_id: @current_user.id, report_id: @report.id)
         n.task = 'Closed Report'
@@ -141,12 +151,12 @@ module Api
       if @report.status_changed?
         body += " Changed status from #{@report.status_was.inspect} to #{@report.status.inspect}."
       end
-      if (task_params[:corrective_action].blank?)
-        render json: { error: 'Record Corrective Action Error', errors: { 'Corrective Action': "Can't be blank" }
-        }, status: :unprocessable_entity
-        return 
+      if task_params[:corrective_action].blank?
+        render json: { error: 'Record Corrective Action Error', errors: { 'Corrective Action': "Can't be blank" } },
+               status: :unprocessable_entity
+        return
       end
-      
+
       if @report.save
         n = Note.new(user_id: @current_user.id, report_id: @report.id)
         n.task = 'Recorded Corrective Action'

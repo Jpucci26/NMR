@@ -1,6 +1,14 @@
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
-import { Layout, SectionHeader, Button, SectionBody, ReportDetails, ReportNotes } from "/components";
+import {
+  Layout,
+  SectionHeader,
+  Button,
+  SectionBody,
+  ReportDetails,
+  ReportNotes,
+  ReportCommentForm,
+} from "/components";
 
 const UserDetail = ({ user, header }) => {
   if (!user) {
@@ -46,7 +54,7 @@ const ShowReportsPage = () => {
   return (
     <Layout title="Reports">
       <SectionHeader title={data.title}>
-      <Button label="Back" href="/" />
+        <Button label="Back" href="/" />
         {data.status == "pending_corrective_action" ? (
           <>
             <Button
@@ -69,8 +77,11 @@ const ShowReportsPage = () => {
       <SectionBody>
         <div className="flex">
           <div className="grow mr-4">
-          <ReportDetails report={data} />
-          <ReportNotes report={data} />
+            <ReportDetails report={data} />
+            <div className="mb-8" />
+            <ReportCommentForm report={data} />
+            <div className="mb-8" />
+            <ReportNotes report={data} />
           </div>
           <div className="w-64">
             <UserDetail user={data.user} header="Submitted By" />
