@@ -2,7 +2,7 @@
     "name": "near-miss-report",
     "version": "0.1.0",
     "scripts": {
-        "postinstall": "cd client && npm install && npm run build"    },
+        "postinstall": "mkdir public && cd client && npm install && npm run build"    },
         "engines": {
             "node": "18.12.1"
           }
