@@ -39,6 +39,8 @@ State Management
 
 * [useState](https://reactjs.org/docs/hooks-state.html) - Localized UI state and form elements
 
+* ~~Redux~~ We do NOT use redux, but we do use a reducer method to update state where server data on dashboard is being filtered by multiple checkboxes
+
 Style Design System
 
 * [TailwindUI](https://tailwindui.com/) - Beautifully designed, expertly crafted components and templates, built by the makers of Tailwind CSS
