@@ -1,3 +1,9 @@
+Note.destroy_all
+Report.destroy_all
+Category.destroy_all
+User.destroy_all
+Location.destroy_all
+
 User.create(username: 'Jake', password: '1234abcd', password_confirmation: '1234abcd',
             email: 'jake@safeco.com',
             title: 'Safety Officer', phone: '(555) 123-2323', avatar:'/avatars/user1.jpg')
