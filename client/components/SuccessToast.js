@@ -19,17 +19,20 @@ export const SuccessToast = () => {
 
   const clearToast = () => {
     setSuccessToast();
+    console.log('setSuccessToast()');
   };
 
   const hideToast = () => {
+    console.log("setShow(false)");
     setShow(false);
   };
 
   const runAnimation = () => {
     if (successToast) {
+      console.log("setShow(true)");
       setShow(true)
-      setTimeout(hideToast, 1500);
-      setTimeout(clearToast, 1000);
+      setTimeout(hideToast, 3000);
+      setTimeout(clearToast, 5000);
     }
   };
 
