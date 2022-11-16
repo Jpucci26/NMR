@@ -11,7 +11,6 @@ import {
   SectionBody,
   Form,
   ErrorAlert,
-  ReportDetails
 } from "/components";
 
 
@@ -175,7 +174,6 @@ const ClarifyReportPage = () => {
       </SectionHeader>
       <SectionBody>
         <ErrorAlert data={data} />
-        <ReportDetails report={report} />
         <Form onSubmit={mutate}>
           <Field name="Title">
             <input
