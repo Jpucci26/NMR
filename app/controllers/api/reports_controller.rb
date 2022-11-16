@@ -61,7 +61,7 @@ module Api
       @report.description = task_params[:description]
       @report.location = Location.find(task_params[:location_id])
       @report.category = Category.find(task_params[:category_id])
-      body = "#{@current_user.username} Clarified Report."
+      body = ""
       body += " Changed title from #{@report.title_was.inspect} to #{@report.title.inspect}." if @report.title_changed?
       if @report.description_changed?
         body += " Changed description from #{@report.description_was.inspect} to #{@report.description.inspect}."
@@ -86,7 +86,7 @@ module Api
 
     def revert
       @report = Report.find(params[:id])
-      body = "#{@current_user.username} reverted report."
+      body = ""
       @report.status = 'pending_corrective_action'
       if @report.status_changed?
         body += " Reverted status from #{@report.status_was.inspect} to #{@report.status.inspect}."
@@ -106,7 +106,7 @@ module Api
       task_params = params.require(:report).permit(:final_action)
       @report = Report.find(params[:id])
       @report.final_action = task_params[:final_action]
-      body = "#{@current_user.username} closed report."
+      body = ""
       @report.status = 'closed'
       if @report.final_action_changed?
         body += if @report.final_action_was.nil?
@@ -139,7 +139,7 @@ module Api
       task_params = params.require(:report).permit(:corrective_action)
       @report = Report.find(params[:id])
       @report.corrective_action = task_params[:corrective_action]
-      body = "#{@current_user.username} recorded corrective action."
+      body = ""
       @report.status = 'pending_final_action'
       if @report.corrective_action_changed?
         if @report.corrective_action_was.nil?

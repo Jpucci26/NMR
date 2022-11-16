@@ -61,7 +61,7 @@ suggestions = ['Sign needed', 'Consider repair', 'Possible fall hazard.', 'Urgen
   qual = qualifiers.sample
   t = "#{damages.sample} #{controls.sample} #{sub_qualifiers.sample} #{qual} #{plat}"
   d = "#{Faker::Construction.role} #{ways_to_notice.sample} #{t} #{time} #{act} #{equipment}.  #{sug}."
-  s = %w[pending_corrective_action closed pending_final_action].sample
+  s = "pending_corrective_action"
   reports << Report.new(user: u, location: l, category: c, title: t, description: d, status: s)
 end
 
@@ -94,7 +94,7 @@ suggestions = ['needs attention', 'requires fix', 'is cause for conern']
   ways2 = ways_to_notice.sample
   t = "#{hazards.sample} #{sub_qualifiers.sample} #{qualifiers.sample} #{locations.sample} #{l.name}"
   d = "#{Faker::Construction.role} #{ways2} #{t} #{time} #{act} #{equipment}. #{probab} #{problem} that #{sug}."
-  s = %w[pending_corrective_action closed pending_final_action].sample
+  s = "pending_corrective_action"
   reports <<  Report.new(user: u, location: l, category: c, title: t, description: d, status: s)
 end
 
@@ -115,7 +115,7 @@ problems = ['failed inspection', 'passed maintenance deadline', 'out-of-service'
   id = ['A', 'B', 'C', 'D', 'E', 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18].sample
   t = "#{e} ##{id} #{p}"
   d = "#{e} #{lq} #{l.name} #{p}"
-  s = %w[pending_corrective_action closed pending_final_action].sample
+  s = "pending_corrective_action"
   reports << Report.new(user: u, location: l, category: c, title: t, description: d, status: s)
 end
 
@@ -138,11 +138,51 @@ c = Category.create!(name: 'Risky behaviour',
   o = ['First offense', '2nd Offense', 'Multiple offenses', 'Refused drug test', 'Caused incident',
        'Pending Investigation'].sample
   d = "#{t} #{o}"
-  s = %w[pending_corrective_action closed pending_final_action].sample
+  s = "pending_corrective_action"
   reports << Report.new(user: u, location: l, category: c, title: t, description: d, status: s)
 end
 
 shuffled_reports = reports.shuffle
 shuffled_reports.each(&:save!)
+
+Report.all.each do |r|
+  n = Note.new
+  lead_id = r.category.user.id
+  user_id = r.user.id
+  commenter = User.all.filter {|u| u.id != lead_id}.sample 
+  if r.category.name['Slips']
+      com_attempt = ["Left message with ", "Spoke with ", "Emailed ", "Texted "].sample
+      sol = ["posting a sign", "roping off the area", "a quick fix"].sample
+      n.body = "#{com_attempt} #{r.category.user.username} about #{sol}"
+      puts "r.category.name: #{r.category.name}"
+
+  end
+  if r.category.name['Equipment']
+      com_attempt = ["Left message with ", "Spoke with ", "Emailed ", "Texted "].sample
+      sol = ["turn around time for a fix.", "keeping this issue from recurring", "a quick fix"].sample
+      n.body = "#{com_attempt} #{r.category.user.username} about #{sol}."
+      puts "r.category.name: #{r.category.name}"
+
+  end
+  if r.category.name['Risky']
+      com_attempt = ["Left message with ", "Spoke with ", "Emailed ", "Texted "].sample
+      sol = ["possible legal implications.", "about training quality.", "updating our handbook."].sample
+      n.body = "#{com_attempt} #{r.category.user.username} about #{sol}."
+      puts "r.category.name: #{r.category.name}"
+
+  end
+  if r.category.name['Fall']
+      com_attempt = ["Left message with ", "Spoke with ", "Emailed ", "Texted "].sample
+      sol = ["hazzard severety.", "closing access to area.", "simple fix"].sample
+      n.body = "#{com_attempt} #{r.category.user.username} about #{sol}."
+      puts "r.category.name: #{r.category.name}"
+
+  end
+  n.user = commenter
+  n.report = r
+  n.task = "Comment"
+  n.save!
+end
+
 
 puts 'done seeding 🌱' # rubocop:disable Rails/Output
