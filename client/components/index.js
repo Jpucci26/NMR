@@ -9,4 +9,5 @@ export { SuccessToast } from "./successToast";
 export { ReportStatus } from "./ReportStatus";
 export { ReportDetails } from "./ReportDetails";
 export { ConfettiSurprise } from "./ConfettiSurprise";
+export { ReportNotes } from "./ReportNotes";
 

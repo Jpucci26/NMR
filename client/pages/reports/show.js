@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
-import { Layout, SectionHeader, Button, SectionBody, ReportDetails } from "/components";
+import { Layout, SectionHeader, Button, SectionBody, ReportDetails, ReportNotes } from "/components";
 
 const UserDetail = ({ user, header }) => {
   if (!user) {
@@ -19,41 +19,6 @@ const UserDetail = ({ user, header }) => {
     );
   }
 };
-
-const NoteList = ({ report }) => {
-
-  const getNotes = async () => {
-    const res = await fetch(`/api/reports/${report.id}/notes`);
-    return res.json();
-  };
-
-  const { data } = useQuery({
-    queryKey: `reports/${report.id}/notes`,
-    queryFn: getNotes,
-    enabled: report.id !== undefined,
-  });
-
-  if (!data || data.error) return <>surpirse</>;
-
-  return(
-    <div>
-      <h3 className="mt-3 mb-3 text-lg">Notes</h3>
-      <div className="text-gray-700 text-sm">
-        {data.map((note) => (
-          <div key={note.id}>
-            <p>{note.task}</p>
-            <p>{note.body}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-
-
-
-
 
 const ShowReportsPage = () => {
   const router = useRouter();
@@ -105,7 +70,7 @@ const ShowReportsPage = () => {
         <div className="flex">
           <div className="grow mr-4">
           <ReportDetails report={data} />
-          <NoteList report={data} />
+          <ReportNotes report={data} />
           </div>
           <div className="w-64">
             <UserDetail user={data.user} header="Submitted By" />

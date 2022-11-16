@@ -1,15 +1,15 @@
 User.create(username: 'Jake', password: '1234abcd', password_confirmation: '1234abcd',
             email: 'jake@safeco.com',
-            title: 'Safety Officer', phone: '(555) 123-2323')
+            title: 'Safety Officer', phone: '(555) 123-2323', avatar:'/avatars/user1.jpg')
 hr_director = User.create(username: 'Sunny', password: '1234abcd', password_confirmation: '1234abcd',
                           email: 'sunny@safeco.com',
-                          title: 'HR Director', phone: '(555) 654-6543')
+                          title: 'HR Director', phone: '(555) 654-6543', avatar:'/avatars/user2.jpg')
 facility_manager = User.create!(username: 'Lindsy', password: '1234abcd', password_confirmation: '1234abcd',
                                 email: 'linsy@safeco.com',
-                                title: 'Facility Manager', phone: '(555) 749-4500')
+                                title: 'Facility Manager', phone: '(555) 749-4500', avatar:'/avatars/user3.jpg')
 operations_director = User.create(username: 'John', password: '1234abcd', password_confirmation: '1234abcd',
                                   email: 'john@safeco.com',
-                                  title: 'Operations Director', phone: '(555) 349-6009')
+                                  title: 'Operations Director', phone: '(555) 349-6009', avatar:'/avatars/user4.jpg')
 
 reports = []
 
