@@ -1,10 +1,9 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { currentUserAtom } from "../atoms/currentUseratom";
+import { currentUserAtom } from "../atoms/currentUserAtom";
 import { atom, useAtom } from "jotai";
 import Link from "next/link";
-import { SuccessToast } from "/components";
 import { useRouter } from "next/router";
 import { successToastAtom } from "../atoms/successToastAtom";
 

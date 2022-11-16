@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { currentUserAtom } from "../atoms/currentUseratom";
+import { currentUserAtom } from "../atoms/currentUserAtom";
 import { atom, useAtom } from "jotai";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 
