@@ -53,7 +53,7 @@ const ShowReportsPage = () => {
 
   return (
     <Layout title="Reports">
-      <SectionHeader title={data.title}>
+      <SectionHeader title="Report Workspace">
         <Button label="Back" href="/" />
         {data.status == "pending_corrective_action" ? (
           <>
