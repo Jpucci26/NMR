@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 import { useRouter } from 'next/router';
-import  {currentUserAtom}  from '../../atoms/currentUseratom';
+import  {currentUserAtom}  from '../../atoms/currentUserAtom';
 import { useAtom } from 'jotai';
 import { redirectAtom } from '../../atoms/redirectAtom';
 

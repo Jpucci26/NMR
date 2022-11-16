@@ -1,6 +1,6 @@
 import "../styles/globals.css";
 import { useEffect, useState } from "react";
-import { currentUserAtom } from "../atoms/currentUseratom";
+import { currentUserAtom } from "../atoms/currentUserAtom";
 import { redirectAtom } from "../atoms/redirectAtom";
 import { atom, useAtom } from "jotai";
 import { useRouter } from "next/router";
