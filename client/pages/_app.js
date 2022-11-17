@@ -23,7 +23,13 @@ export default function App({ Component, pageProps }) {
           if (user.error) {
             // redirect atom is now set to the current pathname
             // allows user to log in and be redirected to the page they were on
-            setRedirect(router.asPath);
+
+            // Don't redirect to any sessions paths because that would be problematic
+            const rPath = router.asPath
+            if ( !rPath.includes("/sessions/")) {
+              setRedirect(router.asPath);
+            }
+
             router.push("/sessions/login");
             // redirect the client to /sessions/login
           } else {
